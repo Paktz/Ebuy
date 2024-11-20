@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import {
   Box,
   Flex,
@@ -19,21 +20,22 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+
+
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
+  
   const router = useRouter();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
 
   // Only check localStorage after component mounts on client
   useEffect(() => {
     setMounted(true);
-    setIsLoggedIn(!!localStorage.getItem('token'));
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    setIsLoggedIn(false);
+    logout(); 
     router.push('/login');
   };
 

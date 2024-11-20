@@ -3,7 +3,7 @@ import { theme } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Layout from '../components/layout/Layout'
-
+import { AuthProvider } from '../context/AuthContext'
 
 // Create a client
 const queryClient = new QueryClient()
@@ -41,10 +41,12 @@ const customTheme = {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={customTheme}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+      <ChakraProvider>
+        <AuthProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </AuthProvider>
       </ChakraProvider>
     </QueryClientProvider>
   )

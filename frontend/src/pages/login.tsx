@@ -1,4 +1,4 @@
-// frontend/src/pages/login.tsx
+import { useAuth } from '../context/AuthContext';
 import {
     Box,
     Button,
@@ -20,16 +20,17 @@ import {
     const [isLoading, setIsLoading] = useState(false);
     const toast = useToast();
     const router = useRouter();
+    const { setIsLoggedIn } = useAuth();
   
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      setIsLoading(true);
-  
-      const formData = new FormData(e.currentTarget);
-      const data = {
+        e.preventDefault();
+        setIsLoading(true);
+
+        const formData = new FormData(e.currentTarget);
+        const data = {
         email: formData.get('email'),
         password: formData.get('password'),
-      };
+        };
   
       try {
         const response = await fetch('http://localhost:3001/api/auth/login', {
@@ -49,6 +50,9 @@ import {
         // Store token in localStorage
         localStorage.setItem('token', result.token);
         
+        // Update global auth state
+        setIsLoggedIn(true);
+
         toast({
           title: 'Login successful',
           status: 'success',
@@ -122,3 +126,4 @@ import {
   
   // Make sure to use default export
   export default LoginPage;
+  
