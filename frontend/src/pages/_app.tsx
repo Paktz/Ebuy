@@ -1,8 +1,9 @@
 import { ChakraProvider } from '@chakra-ui/react'
-
 import { theme } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Layout from '../components/layout/Layout'
+
 
 // Create a client
 const queryClient = new QueryClient()
@@ -41,10 +42,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={customTheme}>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ChakraProvider>
     </QueryClientProvider>
   )
 }
-
 export default MyApp
