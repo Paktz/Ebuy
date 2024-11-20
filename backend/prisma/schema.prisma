@@ -12,3 +12,26 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  username  String
+  role      String    @default("user")
+  createdAt DateTime  @default(now())
+  listings  Listing[]
+}
+
+model Listing {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  price       Float
+  condition   String
+  category    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  sellerId    String
+  seller      User     @relation(fields: [sellerId], references: [id])
+}
