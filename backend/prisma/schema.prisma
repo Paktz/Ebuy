@@ -14,25 +14,93 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  email     String    @unique
-  password  String
-  username  String    @unique
-  role      String    @default("user")
-  bio       String?
-  createdAt DateTime  @default(now())
-  listings  Listing[]
+  id               String    @id @default(uuid())
+  email            String    @unique
+  password         String
+  username         String    @unique
+  role             String    @default("user")
+  bio              String?
+  createdAt        DateTime  @default(now())
+  products         Product[] // Changed from listings to products
+  cart             Cart?
+  buyerOrders      Order[]   @relation("Buyer")
+  sellerOrders     Order[]   @relation("Seller")
+  sentMessages     Message[] @relation("MessageSender")
+  receivedMessages Message[] @relation("MessageReceiver")
 }
 
-model Listing {
-  id          String   @id @default(uuid())
+model Product {
+  id          String      @id @default(uuid())
   title       String
   description String?
-  price       Float
-  condition   String
-  category    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  price       Decimal
+  condition   String // New, Like New, Used, etc.
+  category    String // Complete PC, Graphics Card, CPU, etc.
+  images      String[] // URLs of product images
+  specs       Json? // Technical specifications (optional)
+  status      String      @default("ACTIVE") // ACTIVE, SOLD, RESERVED
+  seller      User        @relation(fields: [sellerId], references: [id])
   sellerId    String
-  seller      User     @relation(fields: [sellerId], references: [id])
+  cartItems   CartItem[]
+  orderItems  OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Cart {
+  id        String     @id @default(uuid())
+  user      User       @relation(fields: [userId], references: [id])
+  userId    String     @unique // One cart per user
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id        String   @id @default(uuid())
+  cart      Cart     @relation(fields: [cartId], references: [id])
+  cartId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([cartId, productId]) // Prevent duplicate products in cart
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  buyer       User        @relation("Buyer", fields: [buyerId], references: [id])
+  buyerId     String
+  seller      User        @relation("Seller", fields: [sellerId], references: [id])
+  sellerId    String
+  items       OrderItem[]
+  status      String      @default("PENDING") // PENDING, PAID, SHIPPED, DELIVERED, CANCELLED
+  totalAmount Decimal
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  quantity  Int
+  price     Decimal // Price at time of purchase
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  sender     User     @relation("MessageSender", fields: [senderId], references: [id])
+  senderId   String
+  receiver   User     @relation("MessageReceiver", fields: [receiverId], references: [id])
+  receiverId String
+  content    String
+  read       Boolean  @default(false)
+  createdAt  DateTime @default(now())
 }

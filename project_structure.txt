@@ -3685,6 +3685,7 @@ D:\CPE334_Project\Ebuy
 |  |     └── readme.md
 |  ├── package-lock.json
 |  ├── package.json
+|  ├── project_structure.txt
 |  ├── src
 |  |  ├── components
 |  |  |  ├── layout
@@ -6088,8 +6089,7 @@ D:\CPE334_Project\Ebuy
 |     ├── package.json
 |     └── readme.md
 ├── package-lock.json
-├── package.json
-└── test.txt
+└── package.json
 
 directory: 2044 file: 4047
 
