@@ -1,11 +1,11 @@
 {
-  "name": "pc-marketplace-backend",
+  "name": "ebuy-frontend",
   "version": "1.0.0",
   "description": "Backend for PC Marketplace",
   "main": "src/index.ts",
   "scripts": {
     "dev": "next dev",
-    "start": "node dist/index.js",
+    "start": "next start",
     "build": "next build",
     "lint": "next lint",
     "test": "next start"
