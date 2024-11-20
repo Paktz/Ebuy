@@ -83,7 +83,7 @@ export default function Navbar() {
                 minW={0}>
                 <Avatar
                   size={'sm'}
-                  src={'https://avatars.dicebear.com/api/male/username.svg'}
+                  src={':https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff'}
                 />
               </MenuButton>
               <MenuList>
