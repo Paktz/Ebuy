@@ -15,7 +15,8 @@ Installation
   1. open command prompt(CMD) to project directory (ex. D:\HardwareEcommerceProject )
   2. run command 'npm install' to install all dependencies
   3. For CMD. go to frontend and backend path and run 'npm run dev' for each one of them.
-  ** NOTE THAT to use next.js v15.13.0 it requires node.js version 18.18.0 and higher to support it.
+  ** NOTE THAT to use next.js v15.13.0 it requires node.js version 18.18.0 and higher to support it.**
+     
              .......................................add more na krub.................................
   
   
