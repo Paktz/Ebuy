@@ -4,7 +4,6 @@ import {
   Box,
   Flex,
   Text,
-  IconButton,
   Button,
   Stack,
   useColorModeValue,
@@ -15,31 +14,45 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  HStack,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
-
+import { ShoppingCart, Package } from 'lucide-react'; // Import icons
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
-  
   const router = useRouter();
   const { isLoggedIn, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
 
-  // Only check localStorage after component mounts on client
   useEffect(() => {
     setMounted(true);
   }, []);
 
   const handleLogout = () => {
-    logout(); 
+    logout();
     router.push('/login');
   };
 
-  // Don't render anything until after client-side hydration
+  const NavLink = ({ children, href }: { children: React.ReactNode; href: string }) => (
+    <Link href={href} passHref>
+      <Text
+        px={2}
+        py={1}
+        rounded={'md'}
+        _hover={{
+          textDecoration: 'none',
+          bg: useColorModeValue('gray.200', 'gray.700'),
+        }}
+        cursor="pointer"
+        fontWeight={router.pathname === href ? 'bold' : 'normal'}
+        color={router.pathname === href ? 'blue.500' : undefined}>
+        {children}
+      </Text>
+    </Link>
+  );
+
   if (!mounted) {
     return null;
   }
@@ -56,7 +69,8 @@ export default function Navbar() {
         borderStyle={'solid'}
         borderColor={useColorModeValue('gray.200', 'gray.900')}
         align={'center'}>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+        {/* Logo */}
+        <Flex flex={{ base: 1 }} justify={{ base: 'start', md: 'start' }}>
           <Text
             fontFamily={'heading'}
             color={useColorModeValue('gray.800', 'white')}
@@ -68,11 +82,41 @@ export default function Navbar() {
           </Text>
         </Flex>
 
+        {/* Navigation Links */}
+        <HStack
+          flex={{ base: 1 }}
+          justify={'center'}
+          display={{ base: 'none', md: 'flex' }}
+          spacing={4}>
+          <NavLink href="/products">Products</NavLink>
+          {isLoggedIn && (
+            <>
+              <NavLink href="/sell">Sell</NavLink>
+              <NavLink href="/my-listings">My Listings</NavLink>
+            </>
+          )}
+        </HStack>
+
+        {/* Right Section */}
         <Stack
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
           direction={'row'}
-          spacing={6}>
+          spacing={6}
+          align={'center'}>
+          
+          {/* Cart Icon */}
+          {isLoggedIn && (
+            <Button
+              variant={'ghost'}
+              size={'sm'}
+              leftIcon={<ShoppingCart />}
+              onClick={() => router.push('/cart')}>
+              Cart
+            </Button>
+          )}
+
+          {/* Auth Buttons / User Menu */}
           {isLoggedIn ? (
             <Menu>
               <MenuButton
@@ -90,8 +134,11 @@ export default function Navbar() {
                 <Link href="/profile" passHref>
                   <MenuItem as="a">Profile</MenuItem>
                 </Link>
-                <Link href="/dashboard" passHref>
-                  <MenuItem as="a">Dashboard</MenuItem>
+                <Link href="/my-listings" passHref>
+                  <MenuItem as="a">My Listings</MenuItem>
+                </Link>
+                <Link href="/orders" passHref>
+                  <MenuItem as="a">Orders</MenuItem>
                 </Link>
                 <MenuDivider />
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
