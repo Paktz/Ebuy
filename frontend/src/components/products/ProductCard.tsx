@@ -1,4 +1,4 @@
-import { Box, Image, Badge, Text, Stack, Button, useColorModeValue } from '@chakra-ui/react';
+// components/products/ProductCard.tsx
 import { useRouter } from 'next/router';
 import { formatPrice } from '../../utils/format';
 
@@ -20,81 +20,90 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const router = useRouter();
-  const bgColor = useColorModeValue('white', 'gray.800');
-  const textColor = useColorModeValue('gray.600', 'gray.200');
+
+  const handleClick = () => router.push(`/products/${product.id}`);
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'ACTIVE':
+        return 'bg-green-100 text-green-800';
+      case 'SOLD':
+        return 'bg-red-100 text-red-800';
+      case 'RESERVED':
+        return 'bg-yellow-100 text-yellow-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Add to cart functionality will be added later
+    alert('Add to cart feature coming soon!');
+  };
 
   return (
-    <Box
-      maxW="sm"
-      borderWidth="1px"
-      borderRadius="lg"
-      overflow="hidden"
-      bg={bgColor}
-      _hover={{ shadow: 'lg', transform: 'translateY(-2px)' }}
-      transition="all 0.2s"
-      cursor="pointer"
-      onClick={() => router.push(`/products/${product.id}`)}
+    <div 
+      className="bg-white rounded-lg border shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden cursor-pointer transform hover:-translate-y-1 transition-transform"
+      onClick={handleClick}
     >
-      <Image
-        src={product.images[0] || '/placeholder.png'}
-        alt={product.title}
-        height="200px"
-        width="100%"
-        objectFit="cover"
-      />
+      {/* Image */}
+      <div className="aspect-w-16 aspect-h-9 bg-gray-200">
+        <img
+          src={product.images[0] || '/placeholder.png'}
+          alt={product.title}
+          className="object-cover w-full h-48"
+        />
+      </div>
 
-      <Box p="6">
-        <Box display="flex" alignItems="baseline">
-          <Badge borderRadius="full" px="2" colorScheme="blue">
+      {/* Content */}
+      <div className="p-4">
+        {/* Badges */}
+        <div className="flex flex-wrap gap-2 mb-2">
+          <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
             {product.condition}
-          </Badge>
-          <Badge borderRadius="full" px="2" ml={2} colorScheme="green">
+          </span>
+          <span className="px-2 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800">
             {product.category}
-          </Badge>
+          </span>
           {product.status !== 'ACTIVE' && (
-            <Badge borderRadius="full" px="2" ml={2} colorScheme="red">
+            <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(product.status)}`}>
               {product.status}
-            </Badge>
+            </span>
           )}
-        </Box>
+        </div>
 
-        <Box
-          mt="1"
-          fontWeight="semibold"
-          as="h4"
-          lineHeight="tight"
-          noOfLines={2}
-        >
+        {/* Title */}
+        <h3 className="font-semibold text-lg mb-1 text-gray-900 line-clamp-2">
           {product.title}
-        </Box>
+        </h3>
 
-        <Box color={textColor} fontSize="sm" mt={2} noOfLines={2}>
-          {product.description}
-        </Box>
+        {/* Description */}
+        {product.description && (
+          <p className="text-gray-600 text-sm mb-2 line-clamp-2">
+            {product.description}
+          </p>
+        )}
 
-        <Stack mt={4} direction="row" justifyContent="space-between" alignItems="center">
-          <Text fontWeight="bold" fontSize="xl">
+        {/* Price and Seller */}
+        <div className="flex justify-between items-center mt-4">
+          <span className="text-xl font-bold text-gray-900">
             {formatPrice(product.price)}
-          </Text>
-          <Text fontSize="sm" color={textColor}>
-            Seller: {product.seller.username}
-          </Text>
-        </Stack>
+          </span>
+          <span className="text-sm text-gray-600">
+            by {product.seller.username}
+          </span>
+        </div>
 
-        <Button
-          mt={4}
-          width="full"
-          colorScheme="blue"
-          onClick={(e) => {
-            e.stopPropagation();
-            // Add to cart functionality will be added later
-            alert('Add to cart feature coming soon!');
-          }}
+        {/* Add to Cart Button */}
+        <button
+          onClick={handleAddToCart}
+          className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
           Add to Cart
-        </Button>
-      </Box>
-    </Box>
+        </button>
+      </div>
+    </div>
   );
 };
 

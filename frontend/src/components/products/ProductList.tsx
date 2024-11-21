@@ -1,18 +1,4 @@
 import { useState, useEffect } from 'react';
-import {
-  Box,
-  SimpleGrid,
-  Skeleton,
-  Text,
-  Center,
-  Button,
-  Stack,
-  Select,
-  Input,
-  HStack,
-  NumberInput,
-  NumberInputField,
-} from '@chakra-ui/react';
 import { productApi } from '../../services/api';
 import ProductCard from './ProductCard';
 
@@ -91,84 +77,97 @@ const ProductList = () => {
 
   if (error) {
     return (
-      <Center p={8}>
-        <Text color="red.500">{error}</Text>
-      </Center>
+      <div className="flex justify-center items-center p-8">
+        <p className="text-red-500">{error}</p>
+      </div>
     );
   }
 
   return (
-    <Box maxW="7xl" mx="auto" px={{ base: 4, md: 8 }} py={8}>
+    <div className="space-y-8">
       {/* Filters */}
-      <Stack spacing={4} mb={8} direction={{ base: 'column', md: 'row' }}>
-        <Input
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <input
+          type="text"
           placeholder="Search products..."
           value={filters.search}
           onChange={(e) => handleFilterChange('search', e.target.value)}
+          className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         />
-        <Select
-          placeholder="Category"
+
+        <select
           value={filters.category}
           onChange={(e) => handleFilterChange('category', e.target.value)}
+          className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         >
+          <option value="">All Categories</option>
           <option value="Complete PC">Complete PC</option>
           <option value="Graphics Card">Graphics Card</option>
           <option value="Processor">Processor</option>
           <option value="Motherboard">Motherboard</option>
           <option value="Memory">Memory</option>
           <option value="Storage">Storage</option>
-        </Select>
-        <Select
-          placeholder="Condition"
+        </select>
+
+        <select
           value={filters.condition}
           onChange={(e) => handleFilterChange('condition', e.target.value)}
+          className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         >
+          <option value="">All Conditions</option>
           <option value="New">New</option>
           <option value="Like New">Like New</option>
           <option value="Used">Used</option>
-        </Select>
-        <HStack>
-          <NumberInput min={0}>
-            <NumberInputField
-              placeholder="Min Price"
-              value={filters.minPrice}
-              onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-            />
-          </NumberInput>
-          <NumberInput min={0}>
-            <NumberInputField
-              placeholder="Max Price"
-              value={filters.maxPrice}
-              onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-            />
-          </NumberInput>
-        </HStack>
-      </Stack>
+        </select>
+
+        <input
+          type="number"
+          placeholder="Min Price"
+          value={filters.minPrice}
+          onChange={(e) => handleFilterChange('minPrice', e.target.value)}
+          className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+
+        <input
+          type="number"
+          placeholder="Max Price"
+          value={filters.maxPrice}
+          onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
+          className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        />
+      </div>
 
       {/* Products Grid */}
-      <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={6}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {loading && page === 1
           ? Array.from({ length: 8 }).map((_, i) => (
-              <Skeleton key={i} height="400px" borderRadius="lg" />
+              <div key={i} className="animate-pulse">
+                <div className="bg-gray-200 h-48 rounded-t-lg"></div>
+                <div className="p-4 bg-white border-x border-b rounded-b-lg space-y-3">
+                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                  <div className="h-4 bg-gray-200 rounded"></div>
+                  <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                </div>
+              </div>
             ))
           : products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
-      </SimpleGrid>
+      </div>
 
       {/* Load More Button */}
       {hasMore && !loading && (
-        <Center mt={8}>
-          <Button
-            colorScheme="blue"
+        <div className="flex justify-center mt-8">
+          <button
             onClick={() => fetchProducts(page + 1)}
-            isLoading={loading}
+            disabled={loading}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Load More
-          </Button>
-        </Center>
+            {loading ? 'Loading...' : 'Load More'}
+          </button>
+        </div>
       )}
-    </Box>
+    </div>
   );
 };
 

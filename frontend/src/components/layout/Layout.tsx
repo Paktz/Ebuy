@@ -1,5 +1,3 @@
-// frontend/src/components/layout/Layout.tsx
-import { Box } from '@chakra-ui/react';
 import Navbar from './Navbar';
 
 interface LayoutProps {
@@ -8,11 +6,11 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <Box>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <Box as="main" minH="calc(100vh - 60px)">
+      <main className="min-h-[calc(100vh-60px)]">
         {children}
-      </Box>
-    </Box>
+      </main>
+    </div>
   );
 }

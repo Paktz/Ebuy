@@ -1,9 +1,13 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from '@chakra-ui/react'
-import type { AppProps } from 'next/app'
+// import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Layout from '../components/layout/Layout'
+// import Layout from '../components/layout/Layout'
 import { AuthProvider } from '../context/AuthContext'
+
+import type { AppProps } from 'next/app'
+import '../styles/globals.css'
+import Layout from '../components/layout/Layout'
 
 // Create a client
 const queryClient = new QueryClient()
