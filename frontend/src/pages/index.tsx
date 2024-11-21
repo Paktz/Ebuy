@@ -12,14 +12,13 @@ export default function Home() {
           fontWeight={600}
           fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
           lineHeight={'110%'}>
-          PC Hardware <br />
+          Welcome to <br />
           <Text as={'span'} color={'blue.400'}>
-            Marketplace
+            EBuy
           </Text>
         </Heading>
         <Text color={'gray.500'}>
           Buy and sell PC components, complete builds, and accessories. 
-          Join our community of tech enthusiasts!
         </Text>
         <Stack
           direction={'column'}
@@ -35,7 +34,7 @@ export default function Home() {
             _hover={{
               bg: 'blue.500',
             }}>
-            Get Started
+            Browse Items
           </Button>
           <Button variant={'ghost'} colorScheme={'blue'} size={'sm'}>  {/* Changed from 'link' to 'ghost' */}
             Learn more

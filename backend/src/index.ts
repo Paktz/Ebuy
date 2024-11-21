@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/auth';
 import profileRoutes from './routes/profile';
+import productRoutes from './routes/products';
+
 const app = express();
 
 // Middleware
@@ -15,6 +17,8 @@ app.use('/api/profile', profileRoutes);
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Backend is working!' });
 });
+// Product Route
+app.use('/api/products', productRoutes);
 
 const PORT = process.env.PORT || 3001;
 
