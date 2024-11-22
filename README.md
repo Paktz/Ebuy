@@ -11,9 +11,9 @@ Installation
   6. run command 'nvm use 18.17.0' and 'nvm alias default 18.17.0' ,respectively.
   7. check node version by running 'node -v'
 
-Connecting the project to postgresql
+Connecting the project to postgresql 
 
-    1.create .env file on root directory, by adding code 
+1. first, create .env file on root directory, then add.
   DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<database_name>?schema=public"
   
   2. check schema.prisma and after 
