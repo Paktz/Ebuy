@@ -12,7 +12,6 @@ Installation
   7. check node version by running 'node -v'
 
   Connecting the project to postgresql
-  
     1.create .env file on root directory, by adding code DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<database_name>?schema=public"
     2. check schema.prisma and after 
     **set DOTENV_CONFIG_PATH=.\.env && npx prisma migrate dev --name <migration-name(it's like description, so first time i write 'init' )>
