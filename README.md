@@ -18,7 +18,7 @@ Connecting the project to postgresql
   2. check schema.prisma and after 
   **set DOTENV_CONFIG_PATH=.\.env && npx prisma migrate dev --name <migration-name(it's like description, so first time i write 'init' )>**
   
-  the above command can migrate(as update, can changing over time) schema.prisma to .env which loads into Postgresql.
+  the above command can migrate(as update, can changing over time) schema.prisma to .env which loads into PostgreSQL.
 
 
   Running project For windows
