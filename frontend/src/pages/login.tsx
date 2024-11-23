@@ -57,6 +57,7 @@ const LoginPage = () => {
 
       const result = await response.json();
       
+      // This one causing the bug where user can not login the website
       // if (response.ok) {
       //   const result = await response.json();
       //   localStorage.setItem('token', result.token);
@@ -64,6 +65,7 @@ const LoginPage = () => {
       //   setIsLoggedIn(true);
       //   router.push('/');
       // }
+
       if (!response.ok) {
         if (response.status === 401) {
           setFormError('Invalid email or password. Please try again.');

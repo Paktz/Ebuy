@@ -1,0 +1,214 @@
+Directory Structure for: D:\CPE334_Project\Ebuy\frontend
+Generated on: 23/11/2024, 11:30:56 pm
+==================================================
+
+├── .env.local
+├── .gitignore
+├── .next
+│   ├── build-manifest.json
+│   ├── cache
+│   │   ├── .tsbuildinfo
+│   │   ├── swc
+│   │   │   └── plugins
+│   │   │       └── v7_windows_x86_64_0.104.41
+│   │   └── webpack
+│   │       ├── client-development
+│   │       │   ├── 0.pack.gz
+│   │       │   ├── 1.pack.gz
+│   │       │   ├── 10.pack.gz
+│   │       │   ├── 11.pack.gz
+│   │       │   ├── 12.pack.gz
+│   │       │   ├── 13.pack.gz
+│   │       │   ├── 14.pack.gz
+│   │       │   ├── 15.pack.gz
+│   │       │   ├── 16.pack.gz
+│   │       │   ├── 17.pack.gz
+│   │       │   ├── 2.pack.gz
+│   │       │   ├── 3.pack.gz
+│   │       │   ├── 4.pack.gz
+│   │       │   ├── 5.pack.gz
+│   │       │   ├── 6.pack.gz
+│   │       │   ├── 7.pack.gz
+│   │       │   ├── 8.pack.gz
+│   │       │   ├── 9.pack.gz
+│   │       │   ├── index.pack.gz
+│   │       │   └── index.pack.gz.old
+│   │       ├── client-development-fallback
+│   │       │   ├── 0.pack.gz
+│   │       │   ├── 1.pack.gz
+│   │       │   ├── index.pack.gz
+│   │       │   └── index.pack.gz.old
+│   │       ├── client-production
+│   │       │   ├── 0.pack
+│   │       │   ├── 1.pack
+│   │       │   ├── 2.pack
+│   │       │   ├── index.pack
+│   │       │   └── index.pack.old
+│   │       ├── server-development
+│   │       │   ├── 0.pack.gz
+│   │       │   ├── 1.pack.gz
+│   │       │   ├── 10.pack.gz
+│   │       │   ├── 11.pack.gz
+│   │       │   ├── 12.pack.gz
+│   │       │   ├── 13.pack.gz
+│   │       │   ├── 14.pack.gz
+│   │       │   ├── 15.pack.gz
+│   │       │   ├── 16.pack.gz
+│   │       │   ├── 17.pack.gz
+│   │       │   ├── 2.pack.gz
+│   │       │   ├── 3.pack.gz
+│   │       │   ├── 4.pack.gz
+│   │       │   ├── 5.pack.gz
+│   │       │   ├── 6.pack.gz
+│   │       │   ├── 7.pack.gz
+│   │       │   ├── 8.pack.gz
+│   │       │   ├── 9.pack.gz
+│   │       │   ├── index.pack.gz
+│   │       │   └── index.pack.gz.old
+│   │       └── server-production
+│   │           ├── 0.pack
+│   │           ├── 1.pack
+│   │           ├── index.pack
+│   │           └── index.pack.old
+│   ├── package.json
+│   ├── react-loadable-manifest.json
+│   ├── server
+│   │   ├── middleware-build-manifest.js
+│   │   ├── middleware-manifest.json
+│   │   ├── middleware-react-loadable-manifest.js
+│   │   ├── next-font-manifest.js
+│   │   ├── next-font-manifest.json
+│   │   ├── pages
+│   │   │   ├── cart.js
+│   │   │   ├── index.js
+│   │   │   ├── login.js
+│   │   │   ├── products.js
+│   │   │   ├── profile
+│   │   │   │   └── edit.js
+│   │   │   ├── profile.js
+│   │   │   ├── register.js
+│   │   │   ├── _app.js
+│   │   │   ├── _document.js
+│   │   │   └── _error.js
+│   │   ├── pages-manifest.json
+│   │   ├── vendor-chunks
+│   │   │   ├── @headlessui.js
+│   │   │   ├── @swc.js
+│   │   │   ├── lucide-react.js
+│   │   │   └── next.js
+│   │   ├── webpack-runtime.js
+│   │   └── _error.js
+│   ├── static
+│   │   ├── chunks
+│   │   │   ├── main.js
+│   │   │   ├── pages
+│   │   │   │   ├── cart.js
+│   │   │   │   ├── index.js
+│   │   │   │   ├── login.js
+│   │   │   │   ├── products.js
+│   │   │   │   ├── profile
+│   │   │   │   │   └── edit.js
+│   │   │   │   ├── profile.js
+│   │   │   │   ├── register.js
+│   │   │   │   ├── _app.js
+│   │   │   │   └── _error.js
+│   │   │   ├── polyfills.js
+│   │   │   ├── react-refresh.js
+│   │   │   ├── webpack.js
+│   │   │   └── _error.js
+│   │   ├── development
+│   │   │   ├── _buildManifest.js
+│   │   │   └── _ssgManifest.js
+│   │   └── webpack
+│   │       ├── 213a17f560b5ddbc.webpack.hot-update.json
+│   │       ├── 633457081244afec._.hot-update.json
+│   │       ├── 64a3360c2245b8ab.webpack.hot-update.json
+│   │       ├── 6fe137d1cff7ee32.webpack.hot-update.json
+│   │       ├── 73e19a17c9472673.webpack.hot-update.json
+│   │       ├── 8727976ff9af3a6e.webpack.hot-update.json
+│   │       ├── 8a800c3465f39dec.webpack.hot-update.json
+│   │       ├── 9e6b182606dfed05.webpack.hot-update.json
+│   │       ├── b32f291b7dccf488.webpack.hot-update.json
+│   │       ├── bcca7df5e1a9c0cb.webpack.hot-update.json
+│   │       ├── bf771f61d24e82d0.webpack.hot-update.json
+│   │       ├── c4f23cc296fe519e.webpack.hot-update.json
+│   │       ├── c8a4c043a4daf551.webpack.hot-update.json
+│   │       ├── c90e4faec3dab59a.webpack.hot-update.json
+│   │       ├── d17185899d477c2d.webpack.hot-update.json
+│   │       ├── d6150d92d47dd674.webpack.hot-update.json
+│   │       ├── e8a376bb977a9376.webpack.hot-update.json
+│   │       ├── eb5ae9b04b7c16d5.webpack.hot-update.json
+│   │       ├── f9bc32855a74994b.webpack.hot-update.json
+│   │       ├── pages
+│   │       │   ├── login.73e19a17c9472673.hot-update.js
+│   │       │   ├── login.8a800c3465f39dec.hot-update.js
+│   │       │   ├── login.b32f291b7dccf488.hot-update.js
+│   │       │   └── _app.c90e4faec3dab59a.hot-update.js
+│   │       ├── webpack.213a17f560b5ddbc.hot-update.js
+│   │       ├── webpack.64a3360c2245b8ab.hot-update.js
+│   │       ├── webpack.6fe137d1cff7ee32.hot-update.js
+│   │       ├── webpack.73e19a17c9472673.hot-update.js
+│   │       ├── webpack.8727976ff9af3a6e.hot-update.js
+│   │       ├── webpack.8a800c3465f39dec.hot-update.js
+│   │       ├── webpack.9e6b182606dfed05.hot-update.js
+│   │       ├── webpack.b32f291b7dccf488.hot-update.js
+│   │       ├── webpack.bcca7df5e1a9c0cb.hot-update.js
+│   │       ├── webpack.bf771f61d24e82d0.hot-update.js
+│   │       ├── webpack.c4f23cc296fe519e.hot-update.js
+│   │       ├── webpack.c8a4c043a4daf551.hot-update.js
+│   │       ├── webpack.c90e4faec3dab59a.hot-update.js
+│   │       ├── webpack.d17185899d477c2d.hot-update.js
+│   │       ├── webpack.d6150d92d47dd674.hot-update.js
+│   │       ├── webpack.e8a376bb977a9376.hot-update.js
+│   │       ├── webpack.eb5ae9b04b7c16d5.hot-update.js
+│   │       └── webpack.f9bc32855a74994b.hot-update.js
+│   └── trace
+├── next-env.d.ts
+├── next.config.js
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── src
+│   ├── components
+│   │   ├── layout
+│   │   │   ├── Layout.tsx
+│   │   │   └── Navbar.tsx
+│   │   ├── products
+│   │   │   ├── ProductCard.tsx
+│   │   │   ├── ProductFilters.tsx
+│   │   │   └── ProductList.tsx
+│   │   └── profile
+│   │       ├── ProfileCard.tsx
+│   │       └── ProfileForm.tsx
+│   ├── context
+│   │   ├── AuthContext.tsx
+│   │   └── CartContext.tsx
+│   ├── hooks
+│   │   └── useAuth.ts
+│   ├── index.ts
+│   ├── pages
+│   │   ├── cart.tsx
+│   │   ├── index.tsx
+│   │   ├── login.tsx
+│   │   ├── products
+│   │   │   └── index.tsx
+│   │   ├── profile
+│   │   │   ├── edit.tsx
+│   │   │   └── index.tsx
+│   │   ├── register.tsx
+│   │   └── _app.tsx
+│   ├── services
+│   │   └── api.ts
+│   ├── styles
+│   │   └── globals.css
+│   ├── types
+│   │   ├── auth.ts
+│   │   ├── index.ts
+│   │   └── product.ts
+│   └── utils
+│       ├── api.ts
+│       ├── auth.ts
+│       ├── format.ts
+│       └── toast.ts
+├── tailwind.config.ts
+└── tsconfig.json

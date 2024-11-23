@@ -76,3 +76,5 @@ if (require.main === module) {
 }
 // How to use?
 // >node tree.js [directory] [filename.txt]
+// >node tree.js frontend frontend_structure.txt
+// >node tree.js backend backend_structure.txt
