@@ -64,8 +64,10 @@ export const cartController = {
   async addToCart(req: Request, res: Response) {
     try {
       const userId = req.user?.id;
-      console.log('Adding to cart for user:', userId);
-      console.log('Request body:', req.body);
+      
+      // console.log('Adding to cart for user:', userId);
+      // console.log('Request body:', req.body);
+
       if (!userId) {
         return res.status(401).json({ message: 'User not authenticated' });
       }
@@ -74,7 +76,8 @@ export const cartController = {
 
       // Validate product and check quantity
       const product = await prisma.product.findUnique({
-        where: { id: productId }
+        where: { id: productId },
+        include: { seller: true }
       });
 
       if (!product) {
@@ -85,6 +88,13 @@ export const cartController = {
         return res.status(400).json({ message: 'Product is not available' });
       }
 
+      // Prevent sellers from adding their own products
+    if (product.sellerId === userId) {
+      return res.status(403).json({ 
+        message: 'You cannot add your own products to cart' 
+      });
+    }
+    
       // Find or create cart
       let cart = await prisma.cart.findUnique({
         where: { userId },

@@ -85,13 +85,18 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const addToCart = async (productId: string, quantity: number = 1) => {
     try {
       dispatch({ type: 'SET_LOADING', payload: true });
-      await cartApi.addToCart(productId, quantity);
+      const response = await cartApi.addToCart(productId, quantity);
       await fetchCart();
       showToast.success('Added to cart!');
-    } catch (error: any) { // Use any here to handle different error types
-      const errorMessage = error.message || 'Failed to add item to cart';
+    } catch (error: any) {
+      // Single error handling
+      const errorMessage = error.response?.data?.message || 'Failed to add item to cart';
       showToast.error(errorMessage);
-      dispatch({ type: 'SET_ERROR', payload: errorMessage });
+      // Don't set error in state if it's just a quantity limit message
+      if (!errorMessage.includes('Maximum quantity') && 
+          !errorMessage.includes('Can only add')) {
+        dispatch({ type: 'SET_ERROR', payload: errorMessage });
+      }
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }

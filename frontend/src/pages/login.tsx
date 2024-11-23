@@ -56,7 +56,14 @@ const LoginPage = () => {
       });
 
       const result = await response.json();
-
+      
+      if (response.ok) {
+        const result = await response.json();
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('userId', result.user.id);  // Add this
+        setIsLoggedIn(true);
+        router.push('/');
+      }
       if (!response.ok) {
         if (response.status === 401) {
           setFormError('Invalid email or password. Please try again.');

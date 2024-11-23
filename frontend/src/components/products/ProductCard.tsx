@@ -2,29 +2,34 @@ import { useRouter } from 'next/router';
 import { formatPrice } from '../../utils/format';
 import { useCart } from '../../context/CartContext';
 import { showToast } from '../../utils/toast';
+import { useAuth } from '../../context/AuthContext';
+import { Product } from '../../types/product'; 
 
-interface ProductCardProps {
-  product: {
-    id: string;
-    title: string;
-    description: string | null;
-    price: number;
-    condition: string;
-    category: string;
-    images: string[];
-    status: string;
-    quantity: number;
-    seller: {
-      username: string;
-    };
-  };
-}
+// interface ProductCardProps {
+//   product: {
+//     id: string;
+//     title: string;
+//     description: string | null;
+//     price: number;
+//     condition: string;
+//     category: string;
+//     images: string[];
+//     status: string;
+//     quantity: number;
+//     seller: {
+//       username: string;
+//     };
+//   };
+// }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard = ({ product }: { product: Product }) => {
   const router = useRouter();
+  const { isLoggedIn, userId } = useAuth();
   const { addToCart, isLoading } = useCart();
-
+  
   const handleClick = () => router.push(`/products/${product.id}`);
+
+  const isOwnProduct = userId === product.sellerId;
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -42,7 +47,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!isLoading) {
-        await addToCart(product.id);
+      await addToCart(product.id);
     }
   };
 
@@ -102,11 +107,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* Add to Cart Button */}
         <button
         onClick={handleAddToCart}
-        disabled={isLoading || product.status !== 'ACTIVE' || product.quantity === 0}
-        className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={
+          isLoading || 
+          product.status !== 'ACTIVE' || 
+          product.quantity === 0 ||
+          isOwnProduct
+        }
+        className={`w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-medium 
+          py-2 px-4 rounded-md transition-colors duration-200 focus:outline-none 
+          focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 
+          disabled:cursor-not-allowed`}
       >
         {isLoading ? 'Adding...' : 
-         product.quantity === 0 ? 'Out of Stock' : 
+         product.quantity === 0 ? 'Out of Stock' :
+         isOwnProduct ? 'Your Product' :
          'Add to Cart'}
       </button>
       </div>

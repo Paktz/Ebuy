@@ -12,9 +12,11 @@ export interface Product {
     sellerId: string;
     createdAt: string;
     updatedAt: string;
+    sellerID: string;
     seller: {
       username: string;
       email: string;
+    //   id: string;
     };
   }
   
