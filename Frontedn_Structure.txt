@@ -1,0 +1,242 @@
+Directory Structure for: D:\CPE334_Project\Ebuy\frontend
+Generated on: 23/11/2024, 12:13:16 am
+==================================================
+
+├── .env.local
+├── .gitignore
+├── .next
+│   ├── build-manifest.json
+│   ├── cache
+│   │   ├── .tsbuildinfo
+│   │   ├── swc
+│   │   │   └── plugins
+│   │   │       └── v7_windows_x86_64_0.104.41
+│   │   └── webpack
+│   │       ├── client-development
+│   │       │   ├── 0.pack.gz
+│   │       │   ├── 1.pack.gz
+│   │       │   ├── 10.pack.gz
+│   │       │   ├── 11.pack.gz
+│   │       │   ├── 12.pack.gz
+│   │       │   ├── 13.pack.gz
+│   │       │   ├── 14.pack.gz
+│   │       │   ├── 2.pack.gz
+│   │       │   ├── 3.pack.gz
+│   │       │   ├── 4.pack.gz
+│   │       │   ├── 5.pack.gz
+│   │       │   ├── 6.pack.gz
+│   │       │   ├── 7.pack.gz
+│   │       │   ├── 8.pack.gz
+│   │       │   ├── 9.pack.gz
+│   │       │   ├── index.pack.gz
+│   │       │   └── index.pack.gz.old
+│   │       ├── client-development-fallback
+│   │       │   ├── 0.pack.gz
+│   │       │   ├── 1.pack.gz
+│   │       │   ├── index.pack.gz
+│   │       │   └── index.pack.gz.old
+│   │       ├── client-production
+│   │       │   ├── 0.pack
+│   │       │   ├── 1.pack
+│   │       │   ├── 2.pack
+│   │       │   ├── index.pack
+│   │       │   └── index.pack.old
+│   │       ├── server-development
+│   │       │   ├── 0.pack.gz
+│   │       │   ├── 1.pack.gz
+│   │       │   ├── 10.pack.gz
+│   │       │   ├── 11.pack.gz
+│   │       │   ├── 12.pack.gz
+│   │       │   ├── 13.pack.gz
+│   │       │   ├── 2.pack.gz
+│   │       │   ├── 3.pack.gz
+│   │       │   ├── 4.pack.gz
+│   │       │   ├── 5.pack.gz
+│   │       │   ├── 6.pack.gz
+│   │       │   ├── 7.pack.gz
+│   │       │   ├── 8.pack.gz
+│   │       │   ├── 9.pack.gz
+│   │       │   ├── index.pack.gz
+│   │       │   └── index.pack.gz.old
+│   │       └── server-production
+│   │           ├── 0.pack
+│   │           ├── 1.pack
+│   │           ├── index.pack
+│   │           └── index.pack.old
+│   ├── package.json
+│   ├── react-loadable-manifest.json
+│   ├── server
+│   │   ├── middleware-build-manifest.js
+│   │   ├── middleware-manifest.json
+│   │   ├── middleware-react-loadable-manifest.js
+│   │   ├── next-font-manifest.js
+│   │   ├── next-font-manifest.json
+│   │   ├── pages
+│   │   │   ├── index.js
+│   │   │   ├── login.js
+│   │   │   ├── products.js
+│   │   │   ├── profile
+│   │   │   │   └── edit.js
+│   │   │   ├── profile.js
+│   │   │   ├── register.js
+│   │   │   ├── _app.js
+│   │   │   ├── _document.js
+│   │   │   └── _error.js
+│   │   ├── pages-manifest.json
+│   │   ├── vendor-chunks
+│   │   │   ├── @headlessui.js
+│   │   │   ├── @swc.js
+│   │   │   ├── lucide-react.js
+│   │   │   └── next.js
+│   │   ├── webpack-runtime.js
+│   │   └── _error.js
+│   ├── static
+│   │   ├── chunks
+│   │   │   ├── main.js
+│   │   │   ├── pages
+│   │   │   │   ├── index.js
+│   │   │   │   ├── login.js
+│   │   │   │   ├── products.js
+│   │   │   │   ├── profile
+│   │   │   │   │   └── edit.js
+│   │   │   │   ├── profile.js
+│   │   │   │   ├── register.js
+│   │   │   │   ├── _app.js
+│   │   │   │   └── _error.js
+│   │   │   ├── polyfills.js
+│   │   │   ├── react-refresh.js
+│   │   │   ├── webpack.js
+│   │   │   └── _error.js
+│   │   ├── development
+│   │   │   ├── _buildManifest.js
+│   │   │   └── _ssgManifest.js
+│   │   └── webpack
+│   │       ├── 00f72d7304fc0145.webpack.hot-update.json
+│   │       ├── 018d0ce1ac3f806f.webpack.hot-update.json
+│   │       ├── 04a471dfe12b6361.webpack.hot-update.json
+│   │       ├── 09f6ec28db7b11c3.webpack.hot-update.json
+│   │       ├── 16c4f76c5768ea75.webpack.hot-update.json
+│   │       ├── 2404f485a7506f2e.webpack.hot-update.json
+│   │       ├── 2744cd37c032c766.webpack.hot-update.json
+│   │       ├── 2b7eea12dd56cf06.webpack.hot-update.json
+│   │       ├── 2dd0a0690a7ee5c4.webpack.hot-update.json
+│   │       ├── 37ed948717007df4.webpack.hot-update.json
+│   │       ├── 395776191ca3516f.webpack.hot-update.json
+│   │       ├── 4146bba8d2bfeb80.webpack.hot-update.json
+│   │       ├── 46803099baa7f2fd.webpack.hot-update.json
+│   │       ├── 4914f0279273cc09.webpack.hot-update.json
+│   │       ├── 5091c5a549c5522c.webpack.hot-update.json
+│   │       ├── 5d62b7654ab0527b.webpack.hot-update.json
+│   │       ├── 5e3a78f1511f365c.webpack.hot-update.json
+│   │       ├── 5e4ec268ac1157e3.webpack.hot-update.json
+│   │       ├── 613771a8794a00c7.webpack.hot-update.json
+│   │       ├── 633457081244afec._.hot-update.json
+│   │       ├── 701487a9d5c3c167.webpack.hot-update.json
+│   │       ├── 7ccf8c0bae41d4c5.webpack.hot-update.json
+│   │       ├── 7fc52ad24b85a448.webpack.hot-update.json
+│   │       ├── 81ca4dd99264bc5d.webpack.hot-update.json
+│   │       ├── 82d99ab0f46ddf1b.webpack.hot-update.json
+│   │       ├── 88ccd487fa9d3171.webpack.hot-update.json
+│   │       ├── 8d33097277a63ff2.webpack.hot-update.json
+│   │       ├── 9664269f7461ab43.webpack.hot-update.json
+│   │       ├── ac8e388421cb71b1.webpack.hot-update.json
+│   │       ├── af91bf429f7c5598.webpack.hot-update.json
+│   │       ├── b2e30fee1d2fed00.webpack.hot-update.json
+│   │       ├── c4326afeb9e21a93.webpack.hot-update.json
+│   │       ├── da10f94a63207fb0.webpack.hot-update.json
+│   │       ├── pages
+│   │       │   ├── index.37ed948717007df4.hot-update.js
+│   │       │   ├── index.46803099baa7f2fd.hot-update.js
+│   │       │   ├── index.81ca4dd99264bc5d.hot-update.js
+│   │       │   ├── login.4914f0279273cc09.hot-update.js
+│   │       │   ├── register.2dd0a0690a7ee5c4.hot-update.js
+│   │       │   ├── _app.00f72d7304fc0145.hot-update.js
+│   │       │   ├── _app.16c4f76c5768ea75.hot-update.js
+│   │       │   ├── _app.4914f0279273cc09.hot-update.js
+│   │       │   ├── _app.5e3a78f1511f365c.hot-update.js
+│   │       │   ├── _app.613771a8794a00c7.hot-update.js
+│   │       │   ├── _app.7ccf8c0bae41d4c5.hot-update.js
+│   │       │   ├── _app.81ca4dd99264bc5d.hot-update.js
+│   │       │   ├── _app.8d33097277a63ff2.hot-update.js
+│   │       │   ├── _app.ac8e388421cb71b1.hot-update.js
+│   │       │   └── _app.b2e30fee1d2fed00.hot-update.js
+│   │       ├── webpack.00f72d7304fc0145.hot-update.js
+│   │       ├── webpack.018d0ce1ac3f806f.hot-update.js
+│   │       ├── webpack.04a471dfe12b6361.hot-update.js
+│   │       ├── webpack.09f6ec28db7b11c3.hot-update.js
+│   │       ├── webpack.16c4f76c5768ea75.hot-update.js
+│   │       ├── webpack.2404f485a7506f2e.hot-update.js
+│   │       ├── webpack.2744cd37c032c766.hot-update.js
+│   │       ├── webpack.2b7eea12dd56cf06.hot-update.js
+│   │       ├── webpack.2dd0a0690a7ee5c4.hot-update.js
+│   │       ├── webpack.37ed948717007df4.hot-update.js
+│   │       ├── webpack.395776191ca3516f.hot-update.js
+│   │       ├── webpack.4146bba8d2bfeb80.hot-update.js
+│   │       ├── webpack.46803099baa7f2fd.hot-update.js
+│   │       ├── webpack.4914f0279273cc09.hot-update.js
+│   │       ├── webpack.5091c5a549c5522c.hot-update.js
+│   │       ├── webpack.5d62b7654ab0527b.hot-update.js
+│   │       ├── webpack.5e3a78f1511f365c.hot-update.js
+│   │       ├── webpack.5e4ec268ac1157e3.hot-update.js
+│   │       ├── webpack.613771a8794a00c7.hot-update.js
+│   │       ├── webpack.701487a9d5c3c167.hot-update.js
+│   │       ├── webpack.7ccf8c0bae41d4c5.hot-update.js
+│   │       ├── webpack.7fc52ad24b85a448.hot-update.js
+│   │       ├── webpack.81ca4dd99264bc5d.hot-update.js
+│   │       ├── webpack.82d99ab0f46ddf1b.hot-update.js
+│   │       ├── webpack.88ccd487fa9d3171.hot-update.js
+│   │       ├── webpack.8d33097277a63ff2.hot-update.js
+│   │       ├── webpack.9664269f7461ab43.hot-update.js
+│   │       ├── webpack.ac8e388421cb71b1.hot-update.js
+│   │       ├── webpack.af91bf429f7c5598.hot-update.js
+│   │       ├── webpack.b2e30fee1d2fed00.hot-update.js
+│   │       ├── webpack.c4326afeb9e21a93.hot-update.js
+│   │       └── webpack.da10f94a63207fb0.hot-update.js
+│   └── trace
+├── next-env.d.ts
+├── next.config.js
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── src
+│   ├── components
+│   │   ├── layout
+│   │   │   ├── Layout.tsx
+│   │   │   └── Navbar.tsx
+│   │   ├── products
+│   │   │   ├── ProductCard.tsx
+│   │   │   ├── ProductFilters.tsx
+│   │   │   └── ProductList.tsx
+│   │   └── profile
+│   │       ├── ProfileCard.tsx
+│   │       └── ProfileForm.tsx
+│   ├── context
+│   │   └── AuthContext.tsx
+│   ├── hooks
+│   │   └── useAuth.ts
+│   ├── index.ts
+│   ├── pages
+│   │   ├── index.tsx
+│   │   ├── login.tsx
+│   │   ├── products
+│   │   │   └── index.tsx
+│   │   ├── profile
+│   │   │   ├── edit.tsx
+│   │   │   └── index.tsx
+│   │   ├── register.tsx
+│   │   └── _app.tsx
+│   ├── services
+│   │   └── api.ts
+│   ├── styles
+│   │   └── globals.css
+│   ├── types
+│   │   ├── auth.ts
+│   │   ├── index.ts
+│   │   └── product.ts
+│   └── utils
+│       ├── api.ts
+│       ├── auth.ts
+│       ├── format.ts
+│       └── toast.ts
+├── tailwind.config.ts
+└── tsconfig.json

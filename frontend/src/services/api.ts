@@ -1,4 +1,13 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { showToast } from '../utils/toast';
+
+interface ApiErrorResponse {
+  message: string;
+  errors?: Array<{
+    field: string;
+    message: string;
+  }>;
+}
 
 const API_URL = 'http://localhost:3001/api';
 
@@ -8,19 +17,62 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 10000, // 10 seconds
 });
 
-// Add auth token to requests if available
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+// Request interceptor
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
-  return config;
-});
+);
+
+// Response interceptor
+api.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  async (error: AxiosError<ApiErrorResponse>) => {
+    const originalRequest = error.config;
+
+    // Handle token expiration
+    if (error.response?.status === 401 && originalRequest) {
+      localStorage.removeItem('token');
+      window.location.href = '/login';
+      return Promise.reject(error);
+    }
+
+    // Show error toast
+    const errorMessage = error.response?.data?.message || 
+                        error.message || 
+                        'An unexpected error occurred';
+    showToast.error(errorMessage);
+
+    return Promise.reject(error);
+  }
+);
+
+// API methods
+export const authApi = {
+  login: async (credentials: { email: string; password: string }) => {
+    const response = await api.post('/auth/login', credentials);
+    return response.data;
+  },
+  register: async (userData: { email: string; password: string; username: string }) => {
+    const response = await api.post('/auth/register', userData);
+    return response.data;
+  },
+  logout: () => {
+    localStorage.removeItem('token');
+  }
+};
 
 export const productApi = {
-  // Get all products with optional filters
   getProducts: async (params?: {
     category?: string;
     condition?: string;
@@ -34,14 +86,10 @@ export const productApi = {
     const response = await api.get('/products', { params });
     return response.data;
   },
-
-  // Get single product by ID
   getProduct: async (id: string) => {
     const response = await api.get(`/products/${id}`);
     return response.data;
   },
-
-  // Create new product
   createProduct: async (productData: {
     title: string;
     description?: string;
@@ -54,8 +102,6 @@ export const productApi = {
     const response = await api.post('/products', productData);
     return response.data;
   },
-
-  // Update product
   updateProduct: async (id: string, updateData: Partial<{
     title: string;
     description: string;
@@ -69,11 +115,42 @@ export const productApi = {
     const response = await api.put(`/products/${id}`, updateData);
     return response.data;
   },
-
-  // Delete product
   deleteProduct: async (id: string) => {
     await api.delete(`/products/${id}`);
+  }
+};
+
+export const profileApi = {
+  getProfile: async () => {
+    const response = await api.get('/profile');
+    return response.data;
   },
+  updateProfile: async (profileData: {
+    username?: string;
+    email?: string;
+    bio?: string;
+  }) => {
+    const response = await api.put('/profile', profileData);
+    return response.data;
+  }
+};
+
+export const cartApi = {
+  getCart: async () => {
+    const response = await api.get('/cart');
+    return response.data;
+  },
+  addToCart: async (productId: string, quantity: number = 1) => {
+    const response = await api.post('/cart/items', { productId, quantity });
+    return response.data;
+  },
+  updateCartItem: async (itemId: string, quantity: number) => {
+    const response = await api.put(`/cart/items/${itemId}`, { quantity });
+    return response.data;
+  },
+  removeFromCart: async (itemId: string) => {
+    await api.delete(`/cart/items/${itemId}`);
+  }
 };
 
 export default api;
