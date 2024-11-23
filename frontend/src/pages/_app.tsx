@@ -1,4 +1,4 @@
-import { ChakraProvider } from '@chakra-ui/react'
+// import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from '@chakra-ui/react'
 // import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -8,6 +8,9 @@ import { AuthProvider } from '../context/AuthContext'
 import type { AppProps } from 'next/app'
 import '../styles/globals.css'
 import Layout from '../components/layout/Layout'
+import { CartProvider } from '../context/CartContext'
+import { Toaster } from 'react-hot-toast';
+
 
 // Create a client
 const queryClient = new QueryClient()
@@ -45,14 +48,15 @@ const customTheme = {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <CartProvider>
           <Layout>
             <Component {...pageProps} />
+            <Toaster position="bottom-center" />
           </Layout>
-        </AuthProvider>
-      </ChakraProvider>
+        </CartProvider>
+      </AuthProvider>
     </QueryClientProvider>
-  )
+  );
 }
 export default MyApp

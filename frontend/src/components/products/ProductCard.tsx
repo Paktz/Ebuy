@@ -1,6 +1,7 @@
-// components/products/ProductCard.tsx
 import { useRouter } from 'next/router';
 import { formatPrice } from '../../utils/format';
+import { useCart } from '../../context/CartContext';
+import { showToast } from '../../utils/toast';
 
 interface ProductCardProps {
   product: {
@@ -12,6 +13,7 @@ interface ProductCardProps {
     category: string;
     images: string[];
     status: string;
+    quantity: number;
     seller: {
       username: string;
     };
@@ -20,6 +22,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const router = useRouter();
+  const { addToCart, isLoading } = useCart();
 
   const handleClick = () => router.push(`/products/${product.id}`);
 
@@ -36,15 +39,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     }
   };
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    // Add to cart functionality will be added later
-    alert('Add to cart feature coming soon!');
+    if (!isLoading) {
+        await addToCart(product.id);
+    }
   };
 
   return (
     <div 
-      className="bg-white rounded-lg border shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden cursor-pointer transform hover:-translate-y-1 transition-transform"
+      className="bg-white rounded-lg border shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden cursor-pointer transform hover:-translate-y-1"
       onClick={handleClick}
     >
       {/* Image */}
@@ -97,11 +101,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         {/* Add to Cart Button */}
         <button
-          onClick={handleAddToCart}
-          className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        >
-          Add to Cart
-        </button>
+        onClick={handleAddToCart}
+        disabled={isLoading || product.status !== 'ACTIVE' || product.quantity === 0}
+        className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {isLoading ? 'Adding...' : 
+         product.quantity === 0 ? 'Out of Stock' : 
+         'Add to Cart'}
+      </button>
       </div>
     </div>
   );

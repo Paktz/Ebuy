@@ -1,5 +1,5 @@
 Directory Structure for: D:\CPE334_Project\Ebuy\backend
-Generated on: 23/11/2024, 12:12:35 am
+Generated on: 23/11/2024, 5:17:20 pm
 ==================================================
 
 ├── .env
@@ -36,6 +36,8 @@ Generated on: 23/11/2024, 12:12:35 am
 │   ├── migrations
 │   │   ├── 20241120113012_init
 │   │   │   └── migration.sql
+│   │   ├── 20241123091709_add_product_quantity
+│   │   │   └── migration.sql
 │   │   └── migration_lock.toml
 │   └── schema.prisma
 ├── src
@@ -43,6 +45,7 @@ Generated on: 23/11/2024, 12:12:35 am
 │   │   └── database.ts
 │   ├── controllers
 │   │   ├── authController.ts
+│   │   ├── cartController.ts
 │   │   ├── productController.ts
 │   │   ├── profile.ts
 │   │   └── userController.ts
@@ -55,6 +58,7 @@ Generated on: 23/11/2024, 12:12:35 am
 │   │   └── index.ts
 │   ├── routes
 │   │   ├── auth.ts
+│   │   ├── cart.ts
 │   │   ├── products.ts
 │   │   ├── profile.ts
 │   │   └── users.ts

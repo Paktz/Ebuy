@@ -135,14 +135,26 @@ export const profileApi = {
   }
 };
 
+// Cart API
 export const cartApi = {
   getCart: async () => {
     const response = await api.get('/cart');
     return response.data;
   },
   addToCart: async (productId: string, quantity: number = 1) => {
-    const response = await api.post('/cart/items', { productId, quantity });
-    return response.data;
+    try {
+      const response = await api.post('/cart/items', { 
+        productId, 
+        quantity 
+      });
+      return response.data;
+    } catch (error) {
+      // Rethrow the error with any response data
+      if (axios.isAxiosError(error) && error.response) {
+        throw new Error(error.response.data.message || 'Failed to add item to cart');
+      }
+      throw error;
+    }
   },
   updateCartItem: async (itemId: string, quantity: number) => {
     const response = await api.put(`/cart/items/${itemId}`, { quantity });
