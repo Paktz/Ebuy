@@ -1,0 +1,69 @@
+Directory Structure for: D:\CPE334_Project\Ebuy\backend
+Generated on: 23/11/2024, 12:12:35 am
+==================================================
+
+├── .env
+├── .gitignore
+├── dist
+│   ├── config
+│   │   └── database.js
+│   ├── controllers
+│   │   ├── authController.js
+│   │   ├── listingController.js
+│   │   └── userController.js
+│   ├── index.js
+│   ├── middleware
+│   │   ├── auth.js
+│   │   ├── error.js
+│   │   └── validation.js
+│   ├── models
+│   │   └── index.js
+│   ├── routes
+│   │   ├── auth.js
+│   │   ├── listings.js
+│   │   └── users.js
+│   ├── services
+│   │   └── email.js
+│   ├── types
+│   │   └── auth.js
+│   └── utils
+│       ├── jwt.js
+│       └── validation.js
+├── nodemon.json
+├── package-lock.json
+├── package.json
+├── prisma
+│   ├── migrations
+│   │   ├── 20241120113012_init
+│   │   │   └── migration.sql
+│   │   └── migration_lock.toml
+│   └── schema.prisma
+├── src
+│   ├── config
+│   │   └── database.ts
+│   ├── controllers
+│   │   ├── authController.ts
+│   │   ├── productController.ts
+│   │   ├── profile.ts
+│   │   └── userController.ts
+│   ├── index.ts
+│   ├── middleware
+│   │   ├── auth.ts
+│   │   ├── error.ts
+│   │   └── validation.ts
+│   ├── models
+│   │   └── index.ts
+│   ├── routes
+│   │   ├── auth.ts
+│   │   ├── products.ts
+│   │   ├── profile.ts
+│   │   └── users.ts
+│   ├── services
+│   │   └── email.ts
+│   ├── types
+│   │   ├── auth.ts
+│   │   └── product.ts
+│   └── utils
+│       ├── jwt.ts
+│       └── validation.ts
+└── tsconfig.json
