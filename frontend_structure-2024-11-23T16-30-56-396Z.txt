@@ -1,5 +1,5 @@
 Directory Structure for: D:\CPE334_Project\Ebuy\frontend
-Generated on: 23/11/2024, 12:13:16 am
+Generated on: 23/11/2024, 11:30:56 pm
 ==================================================
 
 ├── .env.local
@@ -20,6 +20,9 @@ Generated on: 23/11/2024, 12:13:16 am
 │   │       │   ├── 12.pack.gz
 │   │       │   ├── 13.pack.gz
 │   │       │   ├── 14.pack.gz
+│   │       │   ├── 15.pack.gz
+│   │       │   ├── 16.pack.gz
+│   │       │   ├── 17.pack.gz
 │   │       │   ├── 2.pack.gz
 │   │       │   ├── 3.pack.gz
 │   │       │   ├── 4.pack.gz
@@ -48,6 +51,10 @@ Generated on: 23/11/2024, 12:13:16 am
 │   │       │   ├── 11.pack.gz
 │   │       │   ├── 12.pack.gz
 │   │       │   ├── 13.pack.gz
+│   │       │   ├── 14.pack.gz
+│   │       │   ├── 15.pack.gz
+│   │       │   ├── 16.pack.gz
+│   │       │   ├── 17.pack.gz
 │   │       │   ├── 2.pack.gz
 │   │       │   ├── 3.pack.gz
 │   │       │   ├── 4.pack.gz
@@ -72,6 +79,7 @@ Generated on: 23/11/2024, 12:13:16 am
 │   │   ├── next-font-manifest.js
 │   │   ├── next-font-manifest.json
 │   │   ├── pages
+│   │   │   ├── cart.js
 │   │   │   ├── index.js
 │   │   │   ├── login.js
 │   │   │   ├── products.js
@@ -94,6 +102,7 @@ Generated on: 23/11/2024, 12:13:16 am
 │   │   ├── chunks
 │   │   │   ├── main.js
 │   │   │   ├── pages
+│   │   │   │   ├── cart.js
 │   │   │   │   ├── index.js
 │   │   │   │   ├── login.js
 │   │   │   │   ├── products.js
@@ -111,87 +120,48 @@ Generated on: 23/11/2024, 12:13:16 am
 │   │   │   ├── _buildManifest.js
 │   │   │   └── _ssgManifest.js
 │   │   └── webpack
-│   │       ├── 00f72d7304fc0145.webpack.hot-update.json
-│   │       ├── 018d0ce1ac3f806f.webpack.hot-update.json
-│   │       ├── 04a471dfe12b6361.webpack.hot-update.json
-│   │       ├── 09f6ec28db7b11c3.webpack.hot-update.json
-│   │       ├── 16c4f76c5768ea75.webpack.hot-update.json
-│   │       ├── 2404f485a7506f2e.webpack.hot-update.json
-│   │       ├── 2744cd37c032c766.webpack.hot-update.json
-│   │       ├── 2b7eea12dd56cf06.webpack.hot-update.json
-│   │       ├── 2dd0a0690a7ee5c4.webpack.hot-update.json
-│   │       ├── 37ed948717007df4.webpack.hot-update.json
-│   │       ├── 395776191ca3516f.webpack.hot-update.json
-│   │       ├── 4146bba8d2bfeb80.webpack.hot-update.json
-│   │       ├── 46803099baa7f2fd.webpack.hot-update.json
-│   │       ├── 4914f0279273cc09.webpack.hot-update.json
-│   │       ├── 5091c5a549c5522c.webpack.hot-update.json
-│   │       ├── 5d62b7654ab0527b.webpack.hot-update.json
-│   │       ├── 5e3a78f1511f365c.webpack.hot-update.json
-│   │       ├── 5e4ec268ac1157e3.webpack.hot-update.json
-│   │       ├── 613771a8794a00c7.webpack.hot-update.json
+│   │       ├── 213a17f560b5ddbc.webpack.hot-update.json
 │   │       ├── 633457081244afec._.hot-update.json
-│   │       ├── 701487a9d5c3c167.webpack.hot-update.json
-│   │       ├── 7ccf8c0bae41d4c5.webpack.hot-update.json
-│   │       ├── 7fc52ad24b85a448.webpack.hot-update.json
-│   │       ├── 81ca4dd99264bc5d.webpack.hot-update.json
-│   │       ├── 82d99ab0f46ddf1b.webpack.hot-update.json
-│   │       ├── 88ccd487fa9d3171.webpack.hot-update.json
-│   │       ├── 8d33097277a63ff2.webpack.hot-update.json
-│   │       ├── 9664269f7461ab43.webpack.hot-update.json
-│   │       ├── ac8e388421cb71b1.webpack.hot-update.json
-│   │       ├── af91bf429f7c5598.webpack.hot-update.json
-│   │       ├── b2e30fee1d2fed00.webpack.hot-update.json
-│   │       ├── c4326afeb9e21a93.webpack.hot-update.json
-│   │       ├── da10f94a63207fb0.webpack.hot-update.json
+│   │       ├── 64a3360c2245b8ab.webpack.hot-update.json
+│   │       ├── 6fe137d1cff7ee32.webpack.hot-update.json
+│   │       ├── 73e19a17c9472673.webpack.hot-update.json
+│   │       ├── 8727976ff9af3a6e.webpack.hot-update.json
+│   │       ├── 8a800c3465f39dec.webpack.hot-update.json
+│   │       ├── 9e6b182606dfed05.webpack.hot-update.json
+│   │       ├── b32f291b7dccf488.webpack.hot-update.json
+│   │       ├── bcca7df5e1a9c0cb.webpack.hot-update.json
+│   │       ├── bf771f61d24e82d0.webpack.hot-update.json
+│   │       ├── c4f23cc296fe519e.webpack.hot-update.json
+│   │       ├── c8a4c043a4daf551.webpack.hot-update.json
+│   │       ├── c90e4faec3dab59a.webpack.hot-update.json
+│   │       ├── d17185899d477c2d.webpack.hot-update.json
+│   │       ├── d6150d92d47dd674.webpack.hot-update.json
+│   │       ├── e8a376bb977a9376.webpack.hot-update.json
+│   │       ├── eb5ae9b04b7c16d5.webpack.hot-update.json
+│   │       ├── f9bc32855a74994b.webpack.hot-update.json
 │   │       ├── pages
-│   │       │   ├── index.37ed948717007df4.hot-update.js
-│   │       │   ├── index.46803099baa7f2fd.hot-update.js
-│   │       │   ├── index.81ca4dd99264bc5d.hot-update.js
-│   │       │   ├── login.4914f0279273cc09.hot-update.js
-│   │       │   ├── register.2dd0a0690a7ee5c4.hot-update.js
-│   │       │   ├── _app.00f72d7304fc0145.hot-update.js
-│   │       │   ├── _app.16c4f76c5768ea75.hot-update.js
-│   │       │   ├── _app.4914f0279273cc09.hot-update.js
-│   │       │   ├── _app.5e3a78f1511f365c.hot-update.js
-│   │       │   ├── _app.613771a8794a00c7.hot-update.js
-│   │       │   ├── _app.7ccf8c0bae41d4c5.hot-update.js
-│   │       │   ├── _app.81ca4dd99264bc5d.hot-update.js
-│   │       │   ├── _app.8d33097277a63ff2.hot-update.js
-│   │       │   ├── _app.ac8e388421cb71b1.hot-update.js
-│   │       │   └── _app.b2e30fee1d2fed00.hot-update.js
-│   │       ├── webpack.00f72d7304fc0145.hot-update.js
-│   │       ├── webpack.018d0ce1ac3f806f.hot-update.js
-│   │       ├── webpack.04a471dfe12b6361.hot-update.js
-│   │       ├── webpack.09f6ec28db7b11c3.hot-update.js
-│   │       ├── webpack.16c4f76c5768ea75.hot-update.js
-│   │       ├── webpack.2404f485a7506f2e.hot-update.js
-│   │       ├── webpack.2744cd37c032c766.hot-update.js
-│   │       ├── webpack.2b7eea12dd56cf06.hot-update.js
-│   │       ├── webpack.2dd0a0690a7ee5c4.hot-update.js
-│   │       ├── webpack.37ed948717007df4.hot-update.js
-│   │       ├── webpack.395776191ca3516f.hot-update.js
-│   │       ├── webpack.4146bba8d2bfeb80.hot-update.js
-│   │       ├── webpack.46803099baa7f2fd.hot-update.js
-│   │       ├── webpack.4914f0279273cc09.hot-update.js
-│   │       ├── webpack.5091c5a549c5522c.hot-update.js
-│   │       ├── webpack.5d62b7654ab0527b.hot-update.js
-│   │       ├── webpack.5e3a78f1511f365c.hot-update.js
-│   │       ├── webpack.5e4ec268ac1157e3.hot-update.js
-│   │       ├── webpack.613771a8794a00c7.hot-update.js
-│   │       ├── webpack.701487a9d5c3c167.hot-update.js
-│   │       ├── webpack.7ccf8c0bae41d4c5.hot-update.js
-│   │       ├── webpack.7fc52ad24b85a448.hot-update.js
-│   │       ├── webpack.81ca4dd99264bc5d.hot-update.js
-│   │       ├── webpack.82d99ab0f46ddf1b.hot-update.js
-│   │       ├── webpack.88ccd487fa9d3171.hot-update.js
-│   │       ├── webpack.8d33097277a63ff2.hot-update.js
-│   │       ├── webpack.9664269f7461ab43.hot-update.js
-│   │       ├── webpack.ac8e388421cb71b1.hot-update.js
-│   │       ├── webpack.af91bf429f7c5598.hot-update.js
-│   │       ├── webpack.b2e30fee1d2fed00.hot-update.js
-│   │       ├── webpack.c4326afeb9e21a93.hot-update.js
-│   │       └── webpack.da10f94a63207fb0.hot-update.js
+│   │       │   ├── login.73e19a17c9472673.hot-update.js
+│   │       │   ├── login.8a800c3465f39dec.hot-update.js
+│   │       │   ├── login.b32f291b7dccf488.hot-update.js
+│   │       │   └── _app.c90e4faec3dab59a.hot-update.js
+│   │       ├── webpack.213a17f560b5ddbc.hot-update.js
+│   │       ├── webpack.64a3360c2245b8ab.hot-update.js
+│   │       ├── webpack.6fe137d1cff7ee32.hot-update.js
+│   │       ├── webpack.73e19a17c9472673.hot-update.js
+│   │       ├── webpack.8727976ff9af3a6e.hot-update.js
+│   │       ├── webpack.8a800c3465f39dec.hot-update.js
+│   │       ├── webpack.9e6b182606dfed05.hot-update.js
+│   │       ├── webpack.b32f291b7dccf488.hot-update.js
+│   │       ├── webpack.bcca7df5e1a9c0cb.hot-update.js
+│   │       ├── webpack.bf771f61d24e82d0.hot-update.js
+│   │       ├── webpack.c4f23cc296fe519e.hot-update.js
+│   │       ├── webpack.c8a4c043a4daf551.hot-update.js
+│   │       ├── webpack.c90e4faec3dab59a.hot-update.js
+│   │       ├── webpack.d17185899d477c2d.hot-update.js
+│   │       ├── webpack.d6150d92d47dd674.hot-update.js
+│   │       ├── webpack.e8a376bb977a9376.hot-update.js
+│   │       ├── webpack.eb5ae9b04b7c16d5.hot-update.js
+│   │       └── webpack.f9bc32855a74994b.hot-update.js
 │   └── trace
 ├── next-env.d.ts
 ├── next.config.js
@@ -211,11 +181,13 @@ Generated on: 23/11/2024, 12:13:16 am
 │   │       ├── ProfileCard.tsx
 │   │       └── ProfileForm.tsx
 │   ├── context
-│   │   └── AuthContext.tsx
+│   │   ├── AuthContext.tsx
+│   │   └── CartContext.tsx
 │   ├── hooks
 │   │   └── useAuth.ts
 │   ├── index.ts
 │   ├── pages
+│   │   ├── cart.tsx
 │   │   ├── index.tsx
 │   │   ├── login.tsx
 │   │   ├── products

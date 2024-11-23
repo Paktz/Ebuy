@@ -74,3 +74,7 @@ if (require.main === module) {
     const outputPath = process.argv[3] || 'directory-structure.txt';
     saveDirectoryTree(rootPath, outputPath);
 }
+// How to use?
+// >node tree.js [directory] [filename.txt]
+// >node tree.js frontend frontend_structure.txt
+// >node tree.js backend backend_structure.txt

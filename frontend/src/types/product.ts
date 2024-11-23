@@ -4,6 +4,7 @@ export interface Product {
     description: string | null;
     price: number;
     condition: string;
+    quantity: number;
     category: string;
     images: string[];
     specs: Record<string, any> | null;
@@ -11,9 +12,11 @@ export interface Product {
     sellerId: string;
     createdAt: string;
     updatedAt: string;
+    sellerID: string;
     seller: {
       username: string;
       email: string;
+    //   id: string;
     };
   }
   
@@ -23,5 +26,20 @@ export interface Product {
       total: number;
       page: number;
       lastPage: number;
+    };
+  }
+  export interface CartItem {
+    id: string;
+    quantity: number;
+    product: {
+      id: string;
+      title: string;
+      price: number;
+      quantity: number; 
+      images: string[];
+      condition: string;
+      seller: {
+        username: string;
+      };
     };
   }

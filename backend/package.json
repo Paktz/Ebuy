@@ -4,10 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean": "rimraf dist",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "tsc"
-    ,"test": "jest"
+    "build": "npm run clean && tsc",
+    "postbuild": "echo Build completed successfully!",
+    "prebuild": "echo Starting build process...",
+    "build:check": "tsc --noEmit",
+    "build:watch": "tsc --watch",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",

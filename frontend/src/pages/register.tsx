@@ -1,7 +1,7 @@
-// pages/register.tsx
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useAuth } from '../context/AuthContext';
 
 export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,6 +13,8 @@ export default function Register() {
   }>({});
 
   const router = useRouter();
+  const { setIsLoggedIn } = useAuth();
+
 
   const validateForm = (username: string, email: string, password: string) => {
     const errors: { username?: string; email?: string; password?: string } = {};
@@ -56,6 +58,7 @@ export default function Register() {
     setIsLoading(true);
 
     try {
+      // Login
       const response = await fetch('http://localhost:3001/api/auth/register', {
         method: 'POST',
         headers: {

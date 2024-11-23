@@ -56,6 +56,15 @@ const LoginPage = () => {
       });
 
       const result = await response.json();
+      
+      // This one causing the bug where user can not login the website
+      // if (response.ok) {
+      //   const result = await response.json();
+      //   localStorage.setItem('token', result.token);
+      //   localStorage.setItem('userId', result.user.id);  // Add this
+      //   setIsLoggedIn(true);
+      //   router.push('/');
+      // }
 
       if (!response.ok) {
         if (response.status === 401) {
