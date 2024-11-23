@@ -15,8 +15,8 @@ Connecting the project to postgresql
 
 1. first, create .env file on root directory, then add -> DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<database_name>?schema=public"
   
-  2. check schema.prisma and after 
-  **set DOTENV_CONFIG_PATH=.\.env && npx prisma migrate dev --name <migration-name(it's like description, so first time i write 'init' )>**
+  2. check schema.prisma and after that, run
+  **set DOTENV_CONFIG_PATH=.\.env && npx prisma migrate dev --name <migration-name(it's like description, so first time i write 'init' )>** in cmd in root directory.
   
   the above command can migrate(as update, can changing over time) schema.prisma to .env which loads into PostgreSQL.
 
