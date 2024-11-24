@@ -10,6 +10,7 @@ export interface Product {
   status: string;
   sellerId: string;
   quantity: number;
+  views: number;
   createdAt: string;
   updatedAt: string;
   seller: {
@@ -73,3 +74,21 @@ export interface CartItem {
   };
 
   export type ProductStatus = 'ACTIVE' | 'SOLD' | 'RESERVED';
+
+  export interface CreateProductDTO {
+    title: string;
+    description?: string;
+    price: number;
+    condition: string;
+    category: string;
+    subcategory?: string;
+    images: string[];
+    specs?: Record<string, any>;
+    quantity: number;  // Added this field
+  }
+  
+  export interface UpdateProductDTO extends Partial<CreateProductDTO> {
+    status?: string;
+  }
+  
+  

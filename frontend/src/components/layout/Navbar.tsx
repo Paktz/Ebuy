@@ -105,22 +105,22 @@ export default function Navbar() {
     </Menu.Button>
 
     <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-gray-100">
-      {/* Main Menu Items */}
+      {/* Profile Section */}
       <div className="py-1">
         <Menu.Item>
           {({ active }) => (
-            <Link href="/orders">
+            <Link href="/profile">
               <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
-                My Orders
+                Profile Settings
               </span>
             </Link>
           )}
         </Menu.Item>
         <Menu.Item>
           {({ active }) => (
-            <Link href="/inbox">
+            <Link href="/orders">
               <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
-                Inbox
+                My Orders
               </span>
             </Link>
           )}
@@ -134,15 +134,6 @@ export default function Navbar() {
             </Link>
           )}
         </Menu.Item>
-        <Menu.Item>
-          {({ active }) => (
-            <Link href="/settings">
-              <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
-                Settings
-              </span>
-            </Link>
-          )}
-        </Menu.Item>
       </div>
 
       {/* Store Section */}
@@ -150,51 +141,40 @@ export default function Navbar() {
         <div className="px-4 py-2 text-xs font-semibold text-gray-500">MY STORE</div>
         <Menu.Item>
           {({ active }) => (
-            <Link href="/profile">
+            <Link href="/sell">
               <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
-                Public Profile
+                Create Listing
               </span>
             </Link>
           )}
         </Menu.Item>
         <Menu.Item>
           {({ active }) => (
-            <Link href="/my-listings">
+            <Link href="/sell/listings">
               <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
                 My Listings
               </span>
             </Link>
           )}
         </Menu.Item>
-        <Menu.Item>
-          {({ active }) => (
-            <Link href="/my-sales">
-              <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
-                My Sales
-              </span>
-            </Link>
-          )}
-        </Menu.Item>
-        <Menu.Item>
-          {({ active }) => (
-            <Link href="/store-settings">
-              <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
-                Store Settings
-              </span>
-            </Link>
-          )}
-        </Menu.Item>
       </div>
 
-      {/* Logout Section */}
+      {/* Profile Settings & Logout */}
       <div className="py-1">
+        <Menu.Item>
+          {({ active }) => (
+            <Link href="/profile">
+              <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
+                Profile Settings
+              </span>
+            </Link>
+          )}
+        </Menu.Item>
         <Menu.Item>
           {({ active }) => (
             <button
               onClick={handleLogout}
-              className={`${
-                active ? 'bg-gray-50' : ''
-              } block w-full text-left px-4 py-2 text-sm text-gray-700`}
+              className={`${active ? 'bg-gray-50' : ''} block w-full text-left px-4 py-2 text-sm text-gray-700`}
             >
               Log Out
             </button>

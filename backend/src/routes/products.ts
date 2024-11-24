@@ -12,5 +12,6 @@ router.get('/:id', ProductController.getProduct);
 router.post('/', authenticateToken, ProductController.createProduct);
 router.put('/:id', authenticateToken, ProductController.updateProduct);
 router.delete('/:id', authenticateToken, ProductController.deleteProduct);
+router.get('/seller', authenticateToken, ProductController.getSellerProducts);
 
 export default router;

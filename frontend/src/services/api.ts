@@ -86,10 +86,23 @@ export const productApi = {
     const response = await api.get('/products', { params });
     return response.data;
   },
+
+   getSellerProducts: async (params?: {
+    status?: string;
+    sortBy?: string;
+    page?: number;
+    limit?: number;
+  }): Promise<ProductResponse> => {
+    const response = await api.get('/products/seller', { params });
+    return response.data;
+  },
+
+  // get a single product
   getProduct: async (id: string): Promise<ProductDetailResponse> => {
     const response = await api.get(`/products/${id}`);
     return response.data;
   },
+
   createProduct: async (productData: {
     title: string;
     description?: string;
@@ -102,6 +115,7 @@ export const productApi = {
     const response = await api.post('/products', productData);
     return response.data;
   },
+
   updateProduct: async (id: string, updateData: Partial<{
     title: string;
     description: string;
@@ -115,6 +129,7 @@ export const productApi = {
     const response = await api.put(`/products/${id}`, updateData);
     return response.data;
   },
+  
   deleteProduct: async (id: string) => {
     await api.delete(`/products/${id}`);
   }
@@ -162,7 +177,9 @@ export const cartApi = {
   },
   removeFromCart: async (itemId: string) => {
     await api.delete(`/cart/items/${itemId}`);
-  }
+  },
+
+  
 };
 
 export default api;
