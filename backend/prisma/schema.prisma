@@ -27,6 +27,7 @@ model User {
   sellerOrders     Order[]   @relation("Seller")
   sentMessages     Message[] @relation("MessageSender")
   receivedMessages Message[] @relation("MessageReceiver")
+  //reviews          Review[]   // Reviews written by the user
 }
 
 model Product {
@@ -36,9 +37,12 @@ model Product {
   price       Decimal
   condition   String // New, Like New, Used, etc.
   category    String // Complete PC, Graphics Card, CPU, etc.
+  subcategory String? // Optional subcategory
   images      String[] // URLs of product images
   specs       Json? // Technical specifications (optional)
   status      String      @default("ACTIVE") // ACTIVE, SOLD, RESERVED
+  featured    Boolean     @default(false)
+  views       Int         @default(0)        // Track product views
   seller      User        @relation(fields: [sellerId], references: [id])
   sellerId    String
   cartItems   CartItem[]
@@ -46,6 +50,11 @@ model Product {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   quantity    Int         @default(1)
+
+  @@index([category])
+  @@index([subcategory])
+  @@index([status])
+  @@index([featured])
 }
 
 model Cart {

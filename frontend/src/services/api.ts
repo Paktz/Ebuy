@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { showToast } from '../utils/toast';
-
+import { Product, ProductDetailResponse, ProductResponse } from '../types/product';
 interface ApiErrorResponse {
   message: string;
   errors?: Array<{
@@ -86,7 +86,7 @@ export const productApi = {
     const response = await api.get('/products', { params });
     return response.data;
   },
-  getProduct: async (id: string) => {
+  getProduct: async (id: string): Promise<ProductDetailResponse> => {
     const response = await api.get(`/products/${id}`);
     return response.data;
   },
