@@ -27,6 +27,18 @@ Connecting the project to postgresql
   3. For CMD. go to frontend and backend path and run 'npm run dev' for each one of them.
   ** NOTE THAT to use next.js v15.13.0 it requires node.js version 18.18.0 and higher to support it.**
 
+
+      /controlllers
+  │    └── productController.ts  <-- Contains business logic
+  ├── /services
+  │    └── productService.ts  <-- Handles database logic (interaction with Prisma)
+  ├── /middleware
+  │    └── authMiddleware.ts   <-- Handles authentication or other middleware tasks
+  ├── /routes
+  │    └── productRoutes.ts   <-- Handles API route logic and uses controller functions
+  ├── /pages
+  │    └── /api
+  │         └── products.ts   <-- The actual API endpoint that will use the routes
   
      
              .......................................add more na krub.................................
