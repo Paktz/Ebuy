@@ -1,5 +1,5 @@
 Directory Structure for: D:\CPE334_Project\Ebuy\backend
-Generated on: 23/11/2024, 11:30:49 pm
+Generated on: 24/11/2024, 4:15:28 pm
 ==================================================
 
 ├── .env
@@ -9,7 +9,9 @@ Generated on: 23/11/2024, 11:30:49 pm
 │   │   └── database.js
 │   ├── controllers
 │   │   ├── authController.js
-│   │   ├── listingController.js
+│   │   ├── cartController.js
+│   │   ├── productController.js
+│   │   ├── profile.js
 │   │   └── userController.js
 │   ├── index.js
 │   ├── middleware
@@ -20,12 +22,15 @@ Generated on: 23/11/2024, 11:30:49 pm
 │   │   └── index.js
 │   ├── routes
 │   │   ├── auth.js
-│   │   ├── listings.js
+│   │   ├── cart.js
+│   │   ├── products.js
+│   │   ├── profile.js
 │   │   └── users.js
 │   ├── services
 │   │   └── email.js
 │   ├── types
-│   │   └── auth.js
+│   │   ├── auth.js
+│   │   └── product.js
 │   └── utils
 │       ├── jwt.js
 │       └── validation.js
@@ -37,6 +42,8 @@ Generated on: 23/11/2024, 11:30:49 pm
 │   │   ├── 20241120113012_init
 │   │   │   └── migration.sql
 │   │   ├── 20241123091709_add_product_quantity
+│   │   │   └── migration.sql
+│   │   ├── 20241124075153_add_subcategory_field
 │   │   │   └── migration.sql
 │   │   └── migration_lock.toml
 │   └── schema.prisma
