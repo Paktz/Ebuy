@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ProductGrid from '../../components/products/ProductGrid';
+import { Filter, ChevronRight, Cpu, Monitor, Zap } from 'lucide-react';
 
 export default function GamingPcsPage() {
   const [type, setType] = useState('all');
@@ -9,10 +10,39 @@ export default function GamingPcsPage() {
   const [sortBy, setSortBy] = useState('newest');
 
   const pcTypes = [
-    { value: 'all', label: 'All Types' },
-    { value: 'PREBUILT', label: 'Pre-built' },
-    { value: 'CUSTOM', label: 'Custom Built' },
-    { value: 'REFURBISHED', label: 'Refurbished' },
+    {
+      value: 'PREBUILT',
+      label: 'Pre-built PCs',
+      icon: Cpu,
+      description: 'Ready-to-go gaming computers',
+      color: 'from-blue-50 to-blue-100',
+      hoverColor: 'hover:border-blue-200',
+      selectedBg: 'bg-blue-600',
+      iconBg: 'bg-blue-50',
+      iconColor: 'text-blue-600',
+    },
+    {
+      value: 'CUSTOM',
+      label: 'Custom Built PCs',
+      icon: Monitor,
+      description: 'Tailored gaming rigs',
+      color: 'from-green-50 to-green-100',
+      hoverColor: 'hover:border-green-200',
+      selectedBg: 'bg-green-600',
+      iconBg: 'bg-green-50',
+      iconColor: 'text-green-600',
+    },
+    {
+      value: 'REFURBISHED',
+      label: 'Refurbished PCs',
+      icon: Zap,
+      description: 'Pre-owned, restored to full functionality',
+      color: 'from-yellow-50 to-yellow-100',
+      hoverColor: 'hover:border-yellow-200',
+      selectedBg: 'bg-yellow-600',
+      iconBg: 'bg-yellow-50',
+      iconColor: 'text-yellow-600',
+    },
   ];
 
   const processors = [
@@ -36,82 +66,132 @@ export default function GamingPcsPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Header with Breadcrumb */}
       <div className="mb-8">
+        <div className="flex items-center text-sm text-gray-500 mb-4">
+          <span>Gaming PCs</span>
+          {type !== 'all' && (
+            <>
+              <ChevronRight className="w-4 h-4 mx-2" />
+              <span className="text-gray-900">
+                {pcTypes.find((t) => t.value === type)?.label}
+              </span>
+            </>
+          )}
+        </div>
         <h1 className="text-3xl font-bold text-gray-900">Gaming PCs</h1>
         <p className="mt-2 text-gray-600">
           Discover high-performance gaming computers built for every level of gamer
         </p>
       </div>
 
-      {/* PC Type Tabs */}
-      <div className="mb-6 flex gap-4 overflow-x-auto pb-2">
-        {pcTypes.map((pcType) => (
-          <button
-            key={pcType.value}
-            onClick={() => setType(pcType.value)}
-            className={`px-4 py-2 rounded-full whitespace-nowrap ${
-              type === pcType.value
-                ? 'bg-purple-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
+      {/* PC Type Cards */}
+      <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        {pcTypes.map((pcType) => {
+          const IconComponent = pcType.icon;
+          return (
+            <button
+              key={pcType.value}
+              onClick={() => setType(pcType.value)}
+              className={`p-6 rounded-xl text-left transition-all ${
+                type === pcType.value
+                  ? `${pcType.selectedBg} text-white shadow-lg scale-105`
+                  : `bg-gradient-to-r ${pcType.color} border border-gray-200 text-gray-700 ${pcType.hoverColor} hover:shadow`
+              }`}
+            >
+              <div className="flex items-start gap-4">
+                <div
+                  className={`p-3 rounded-lg ${
+                    type === pcType.value ? 'bg-white/20' : pcType.iconBg
+                  }`}
+                >
+                  <IconComponent
+                    className={`w-6 h-6 ${
+                      type === pcType.value ? 'text-white' : pcType.iconColor
+                    }`}
+                  />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">{pcType.label}</h3>
+                  <p
+                    className={`mt-1 text-sm ${
+                      type === pcType.value ? 'text-white/80' : 'text-gray-500'
+                    }`}
+                  >
+                    {pcType.description}
+                  </p>
+                </div>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Filters Section */}
+      <div className="mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+        <div className="flex items-center gap-2 mb-4">
+          <Filter className="w-5 h-5 text-gray-500" />
+          <span className="font-medium text-gray-700">Filters</span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Processor Filter */}
+          <select
+            className="rounded-md border border-gray-300 px-3 py-2"
+            value={processor}
+            onChange={(e) => setProcessor(e.target.value)}
           >
-            {pcType.label}
-          </button>
-        ))}
+            {processors.map((p) => (
+              <option key={p.value} value={p.value}>
+                {p.label}
+              </option>
+            ))}
+          </select>
+
+          {/* GPU Filter */}
+          <select
+            className="rounded-md border border-gray-300 px-3 py-2"
+            value={gpu}
+            onChange={(e) => setGpu(e.target.value)}
+          >
+            {gpus.map((g) => (
+              <option key={g.value} value={g.value}>
+                {g.label}
+              </option>
+            ))}
+          </select>
+
+          {/* Price Range Filter */}
+          <select
+            className="rounded-md border border-gray-300 px-3 py-2"
+            value={`${priceRange[0]}-${priceRange[1]}`}
+            onChange={(e) => {
+              const [min, max] = e.target.value.split('-').map(Number);
+              setPriceRange([min, max]);
+            }}
+          >
+            <option value="0-10000">All Prices</option>
+            <option value="0-1000">Under $1,000</option>
+            <option value="1000-2000">$1,000 - $2,000</option>
+            <option value="2000-3000">$2,000 - $3,000</option>
+            <option value="3000-10000">Over $3,000</option>
+          </select>
+
+          {/* Sort */}
+          <select
+            className="rounded-md border border-gray-300 px-3 py-2"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+          >
+            <option value="newest">Newest First</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="performance">Performance</option>
+          </select>
+        </div>
       </div>
 
-      <div className="mb-6 flex flex-wrap gap-4">
-        {/* Processor Filter */}
-        <select
-          className="rounded-md border border-gray-300 px-3 py-2"
-          value={processor}
-          onChange={(e) => setProcessor(e.target.value)}
-        >
-          {processors.map((p) => (
-            <option key={p.value} value={p.value}>{p.label}</option>
-          ))}
-        </select>
-
-        {/* GPU Filter */}
-        <select
-          className="rounded-md border border-gray-300 px-3 py-2"
-          value={gpu}
-          onChange={(e) => setGpu(e.target.value)}
-        >
-          {gpus.map((g) => (
-            <option key={g.value} value={g.value}>{g.label}</option>
-          ))}
-        </select>
-
-        {/* Price Range Filter */}
-        <select
-          className="rounded-md border border-gray-300 px-3 py-2"
-          value={`${priceRange[0]}-${priceRange[1]}`}
-          onChange={(e) => {
-            const [min, max] = e.target.value.split('-').map(Number);
-            setPriceRange([min, max]);
-          }}
-        >
-          <option value="0-10000">All Prices</option>
-          <option value="0-1000">Under $1,000</option>
-          <option value="1000-2000">$1,000 - $2,000</option>
-          <option value="2000-3000">$2,000 - $3,000</option>
-          <option value="3000-10000">Over $3,000</option>
-        </select>
-
-        {/* Sort */}
-        <select
-          className="rounded-md border border-gray-300 px-3 py-2 ml-auto"
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-        >
-          <option value="newest">Newest First</option>
-          <option value="price-low">Price: Low to High</option>
-          <option value="price-high">Price: High to Low</option>
-          <option value="performance">Performance</option>
-        </select>
-      </div>
-
+      {/* Product Grid */}
       <ProductGrid
         category="GAMING_PCS"
         filter={{

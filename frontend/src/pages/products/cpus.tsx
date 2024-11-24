@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import ProductGrid from '../../components/products/ProductGrid';
 import { Filter, ChevronRight, Cpu, Zap, Microchip, Activity } from 'lucide-react';
+import IntelLogo from '../../../public/images/intel-logo.png';
+import AMDLogo from '../../../public/images/AMD-Logo.png';
 
 export default function CpusPage() {
   const [manufacturer, setManufacturer] = useState('all');
@@ -14,8 +16,8 @@ export default function CpusPage() {
     {
       value: 'INTEL',
       label: 'Intel Processors',
-      icon: Cpu,
-      description: 'Core i3, i5, i7 & i9 Processors',
+      icon: () => <img src={IntelLogo.src} alt="INTEL" className="w-12 h-12 object-contain" />,
+      description: 'intel Core i3, i5, i7 & i9 Processors',
       color: 'from-blue-50 to-blue-100',
       hoverColor: 'hover:border-blue-200',
       selectedBg: 'bg-blue-600',
@@ -31,7 +33,7 @@ export default function CpusPage() {
     {
       value: 'AMD',
       label: 'AMD Processors',
-      icon: Microchip,
+      icon: () => <img src={AMDLogo.src} alt="INTEL" className="w-16 h-16 object-contain" />,
       description: 'Ryzen 3, 5, 7 & 9 Processors',
       color: 'from-red-50 to-red-100',
       hoverColor: 'hover:border-red-200',

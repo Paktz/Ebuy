@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-function generateTree(startPath, indent = '', excludePatterns = ['node_modules']) {
+function generateTree(startPath, indent = '', excludePatterns = ['node_modules', '.next']) {
     let output = '';
     const files = fs.readdirSync(startPath);
 
@@ -32,7 +32,7 @@ function generateTree(startPath, indent = '', excludePatterns = ['node_modules']
     return output;
 }
 
-function saveDirectoryTree(rootPath, outputPath = 'directory-structure.txt', excludePatterns = ['node_modules']) {
+function saveDirectoryTree(rootPath, outputPath = 'directory-structure.txt', excludePatterns = ['node_modules','.next']) {
     try {
         // Get the absolute path
         const absolutePath = path.resolve(rootPath);

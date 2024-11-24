@@ -1,0 +1,64 @@
+Directory Structure for: D:\CPE334_Project\Ebuy\frontend
+Generated on: 24/11/2024, 5:23:33 pm
+==================================================
+
+├── .env.local
+├── .gitignore
+├── next-env.d.ts
+├── next.config.js
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── src
+│   ├── components
+│   │   ├── layout
+│   │   │   ├── Layout.tsx
+│   │   │   └── Navbar.tsx
+│   │   ├── products
+│   │   │   ├── ProductCard.tsx
+│   │   │   ├── ProductFilters.tsx
+│   │   │   ├── ProductGrid.tsx
+│   │   │   └── ProductList.tsx
+│   │   └── profile
+│   │       ├── ProfileCard.tsx
+│   │       └── ProfileForm.tsx
+│   ├── context
+│   │   ├── AuthContext.tsx
+│   │   └── CartContext.tsx
+│   ├── hooks
+│   │   └── useAuth.ts
+│   ├── index.ts
+│   ├── pages
+│   │   ├── cart.tsx
+│   │   ├── index.tsx
+│   │   ├── login.tsx
+│   │   ├── products
+│   │   │   ├── accessories.tsx
+│   │   │   ├── components.tsx
+│   │   │   ├── cpus.tsx
+│   │   │   ├── gpus.tsx
+│   │   │   ├── index.tsx
+│   │   │   ├── other-systems.tsx
+│   │   │   ├── pcs.tsx
+│   │   │   ├── peripherals.tsx
+│   │   │   └── [id].tsx
+│   │   ├── profile
+│   │   │   ├── edit.tsx
+│   │   │   └── index.tsx
+│   │   ├── register.tsx
+│   │   └── _app.tsx
+│   ├── services
+│   │   └── api.ts
+│   ├── styles
+│   │   └── globals.css
+│   ├── types
+│   │   ├── auth.ts
+│   │   ├── index.ts
+│   │   └── product.ts
+│   └── utils
+│       ├── api.ts
+│       ├── auth.ts
+│       ├── format.ts
+│       └── toast.ts
+├── tailwind.config.ts
+└── tsconfig.json

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import ProductGrid from '../../components/products/ProductGrid';
 import { Filter, ChevronRight, Cpu, Monitor, Zap, Activity } from 'lucide-react';
+import NvidiaLogo from '../../../public/images/Nvidia-logo.png';
+import RadeonLogo from '../../../public/images/RADEON-Logo.png';
 
 export default function GpusPage() {
   const [manufacturer, setManufacturer] = useState('all');
@@ -13,7 +15,7 @@ export default function GpusPage() {
     {
       value: 'NVIDIA',
       label: 'NVIDIA GPUs',
-      icon: Cpu,
+      icon: () => <img src={NvidiaLogo.src} alt="NVIDIA" className="w-12 h-12 object-contain" />,
       description: 'GeForce RTX & GTX Graphics Cards',
       color: 'from-green-50 to-green-100',
       hoverColor: 'hover:border-green-200',
@@ -24,7 +26,7 @@ export default function GpusPage() {
     {
       value: 'AMD',
       label: 'AMD GPUs',
-      icon: Monitor,
+      icon: () => <img src={RadeonLogo.src} alt="AMD" className="w-16 h-16 object-contain" />,
       description: 'Radeon RX Graphics Cards',
       color: 'from-red-50 to-red-100',
       hoverColor: 'hover:border-red-200',
