@@ -15,11 +15,13 @@ import { ShoppingCart,
         } from 'lucide-react';
 import Image from 'next/image';
 import { Menu } from '@headlessui/react';
+import { useCart } from '../../context/CartContext';
 
 export default function Navbar() {
   const router = useRouter();
   const { isLoggedIn, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
+  const { items } = useCart();
 
   useEffect(() => {
     setMounted(true);
@@ -47,6 +49,8 @@ export default function Navbar() {
     { name: 'Discord', href: '/discord' },
     { name: 'PC Finder', href: '/pc-finder' },
   ];
+
+  const cartItemsCount = items.reduce((total, item) => total + item.quantity, 0);
 
   if (!mounted) return null;
 
@@ -96,12 +100,13 @@ export default function Navbar() {
               
               <button 
                 onClick={() => router.push('/cart')}
-                className="p-2 hover:bg-gray-100 rounded-full relative"
-              >
+                className="p-2 hover:bg-gray-100 rounded-full relative">
                 <ShoppingCart className="h-6 w-6" />
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  0
-                </span>
+                {cartItemsCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {cartItemsCount}
+                  </span>
+                )}
               </button>
 
               {isLoggedIn ? (
