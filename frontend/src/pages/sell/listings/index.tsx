@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../../context/AuthContext';
@@ -17,12 +17,24 @@ import {
 } from 'lucide-react';
 import { Search } from 'lucide-react';
 
+
 export default function MyListingsPage() {
   const router = useRouter();
   const { isLoggedIn } = useAuth();
+  const [mounted, setMounted] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('newest');
   const [page, setPage] = useState(1);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted && !isLoggedIn) {
+      router.push('/login');
+    }
+  }, [mounted, isLoggedIn, router]);
 
   const { 
     data, 
@@ -36,15 +48,10 @@ export default function MyListingsPage() {
       sortBy,
       page,
       limit: 10
-    })
+    }),
+    enabled: mounted && isLoggedIn 
   });
-
-  // Redirect if not logged in
-  if (!isLoggedIn) {
-    router.push('/login');
-    return null;
-  }
-
+  
   // If loading, show loading state
   if (isLoading) {
     return (
