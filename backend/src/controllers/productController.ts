@@ -116,6 +116,83 @@ const ProductController = {
     }
   },
 
+  // Get seller products
+  async getSellerProducts(req: Request, res: Response): Promise<void> {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        res.status(401).json({ message: 'Unauthorized' });
+        return;
+      }
+
+      const {
+        status,
+        sortBy = 'newest',
+        page = 1,
+        limit = 10
+      } = req.query;
+
+      const skip = (Number(page) - 1) * Number(limit);
+
+      // Build the where clause
+      const where: Prisma.ProductWhereInput = {
+        sellerId: userId,
+        ...(status ? { status: status as string } : {}),
+      };
+
+      // Build the orderBy clause
+      let orderBy: Prisma.ProductOrderByWithRelationInput = {};
+      switch (sortBy) {
+        case 'oldest':
+          orderBy = { createdAt: 'asc' };
+          break;
+        case 'price-high':
+          orderBy = { price: 'desc' };
+          break;
+        case 'price-low':
+          orderBy = { price: 'asc' };
+          break;
+        case 'views':
+          orderBy = { views: 'desc' };
+          break;
+        default:
+          orderBy = { createdAt: 'desc' }; // newest first
+      }
+
+      const [products, total] = await Promise.all([
+        prisma.product.findMany({
+          where,
+          include: {
+            seller: {
+              select: {
+                username: true,
+                email: true,
+              },
+            },
+          },
+          skip,
+          take: Number(limit),
+          orderBy,
+        }),
+        prisma.product.count({ where }),
+      ]);
+
+      res.json({
+        products,
+        meta: {
+          total,
+          page: Number(page),
+          lastPage: Math.ceil(total / Number(limit)),
+        },
+      });
+    } catch (error) {
+      console.error('Error fetching seller products:', error);
+      res.status(500).json({
+        message: 'Error fetching seller products',
+        error: error instanceof Error ? error.message : 'Unknown error',
+      });
+    }
+  },
   // Create new product
   async createProduct(req: Request, res: Response): Promise<void> {
     try {
@@ -232,3 +309,4 @@ const ProductController = {
 };
 
 export default ProductController;
+

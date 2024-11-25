@@ -85,11 +85,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const addToCart = async (productId: string, quantity: number = 1) => {
     try {
       dispatch({ type: 'SET_LOADING', payload: true });
+      // Make API call
       const response = await cartApi.addToCart(productId, quantity);
+      // Only show success toast and fetch cart if API call succeeds
       await fetchCart();
       showToast.success('Added to cart!');
+      return response;
     } catch (error: any) {
-      // Single error handling
+      // Handle error toast
       const errorMessage = error.response?.data?.message || 'Failed to add item to cart';
       showToast.error(errorMessage);
       // Don't set error in state if it's just a quantity limit message
@@ -97,6 +100,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
           !errorMessage.includes('Can only add')) {
         dispatch({ type: 'SET_ERROR', payload: errorMessage });
       }
+      // Re-throw the error so the component can handle it
+      throw error;
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }

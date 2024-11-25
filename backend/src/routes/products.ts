@@ -6,11 +6,14 @@ const router = Router();
 
 // Public routes
 router.get('/', ProductController.getProducts);
-router.get('/:id', ProductController.getProduct);
 
-// Protected routes - require authentication
+// Protected routes - require authentication 
+// DO NOT RE-ORDER
+router.get('/seller', authenticateToken, ProductController.getSellerProducts);
 router.post('/', authenticateToken, ProductController.createProduct);
+router.get('/:id', ProductController.getProduct);
 router.put('/:id', authenticateToken, ProductController.updateProduct);
 router.delete('/:id', authenticateToken, ProductController.deleteProduct);
+
 
 export default router;
