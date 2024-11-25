@@ -164,7 +164,11 @@ export const cartApi = {
       });
       return response.data;
     } catch (error) {
-      // Rethrow the error with any response data
+      // Explicitly handle 403 Forbidden error
+      if (axios.isAxiosError(error) && error.response?.status === 403) {
+        throw new Error(error.response.data.message || 'You cannot add this item to cart');
+      }
+      // Handle other errors
       if (axios.isAxiosError(error) && error.response) {
         throw new Error(error.response.data.message || 'Failed to add item to cart');
       }

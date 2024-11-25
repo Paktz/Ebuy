@@ -47,7 +47,13 @@ const ProductCard = ({ product }: { product: Product }) => {
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!isLoading) {
-      await addToCart(product.id);
+      try {
+        await addToCart(product.id);
+      } catch (error) {
+        // Error is already handled in CartContext
+        // No need to show another toast here
+        console.log('Failed to add to cart:', error);
+      }
     }
   };
 

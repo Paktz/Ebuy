@@ -1,5 +1,5 @@
 Directory Structure for: D:\CPE334_Project\Ebuy\frontend
-Generated on: 24/11/2024, 5:23:33 pm
+Generated on: 25/11/2024, 7:55:49 pm
 ==================================================
 
 ├── .env.local
@@ -9,8 +9,15 @@ Generated on: 24/11/2024, 5:23:33 pm
 ├── package-lock.json
 ├── package.json
 ├── postcss.config.js
+├── public
+│   └── images
+│       ├── AMD-Logo.png
+│       ├── intel-logo.png
+│       ├── Nvidia-logo.png
+│       └── RADEON-Logo.png
 ├── src
 │   ├── components
+│   │   ├── forms
 │   │   ├── layout
 │   │   │   ├── Layout.tsx
 │   │   │   └── Navbar.tsx
@@ -46,6 +53,10 @@ Generated on: 24/11/2024, 5:23:33 pm
 │   │   │   ├── edit.tsx
 │   │   │   └── index.tsx
 │   │   ├── register.tsx
+│   │   ├── sell
+│   │   │   ├── index.tsx
+│   │   │   └── listings
+│   │   │       └── index.tsx
 │   │   └── _app.tsx
 │   ├── services
 │   │   └── api.ts
