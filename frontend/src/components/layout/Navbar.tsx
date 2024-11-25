@@ -2,7 +2,17 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ShoppingCart, Heart, Bell, Search } from 'lucide-react';
+import { ShoppingCart, 
+        Heart, 
+        Bell, 
+        Search,
+        Plus,
+        LayoutGrid,
+        LogOut,
+        Store,
+        UserCircle,
+        Package, 
+        } from 'lucide-react';
 import Image from 'next/image';
 import { Menu } from '@headlessui/react';
 
@@ -105,12 +115,13 @@ export default function Navbar() {
     </Menu.Button>
 
     <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-gray-100">
-      {/* Profile Section */}
+      {/* User Section */}
       <div className="py-1">
         <Menu.Item>
           {({ active }) => (
             <Link href="/profile">
-              <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
+              <span className={`${active ? 'bg-gray-50' : ''} flex items-center px-4 py-2 text-sm text-gray-700`}>
+                <UserCircle className="h-4 w-4 mr-3" />
                 Profile Settings
               </span>
             </Link>
@@ -119,7 +130,8 @@ export default function Navbar() {
         <Menu.Item>
           {({ active }) => (
             <Link href="/orders">
-              <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
+              <span className={`${active ? 'bg-gray-50' : ''} flex items-center px-4 py-2 text-sm text-gray-700`}>
+                <Package className="h-4 w-4 mr-3" />
                 My Orders
               </span>
             </Link>
@@ -128,7 +140,8 @@ export default function Navbar() {
         <Menu.Item>
           {({ active }) => (
             <Link href="/wishlist">
-              <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
+              <span className={`${active ? 'bg-gray-50' : ''} flex items-center px-4 py-2 text-sm text-gray-700`}>
+                <Heart className="h-4 w-4 mr-3" />
                 Wishlist
               </span>
             </Link>
@@ -138,11 +151,15 @@ export default function Navbar() {
 
       {/* Store Section */}
       <div className="py-1">
-        <div className="px-4 py-2 text-xs font-semibold text-gray-500">MY STORE</div>
+        <div className="px-4 py-2 text-xs font-semibold text-gray-500 flex items-center">
+          <Store className="h-3 w-3 mr-1" />
+          MY STORE
+        </div>
         <Menu.Item>
           {({ active }) => (
             <Link href="/sell">
-              <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
+              <span className={`${active ? 'bg-gray-50' : ''} flex items-center px-4 py-2 text-sm text-gray-700`}>
+                <Plus className="h-4 w-4 mr-3" />
                 Create Listing
               </span>
             </Link>
@@ -151,7 +168,8 @@ export default function Navbar() {
         <Menu.Item>
           {({ active }) => (
             <Link href="/sell/listings">
-              <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
+              <span className={`${active ? 'bg-gray-50' : ''} flex items-center px-4 py-2 text-sm text-gray-700`}>
+                <LayoutGrid className="h-4 w-4 mr-3" />
                 My Listings
               </span>
             </Link>
@@ -159,23 +177,14 @@ export default function Navbar() {
         </Menu.Item>
       </div>
 
-      {/* Profile Settings & Logout */}
+      {/* Logout Section */}
       <div className="py-1">
-        <Menu.Item>
-          {({ active }) => (
-            <Link href="/profile">
-              <span className={`${active ? 'bg-gray-50' : ''} block px-4 py-2 text-sm text-gray-700`}>
-                Profile Settings
-              </span>
-            </Link>
-          )}
-        </Menu.Item>
         <Menu.Item>
           {({ active }) => (
             <button
               onClick={handleLogout}
-              className={`${active ? 'bg-gray-50' : ''} block w-full text-left px-4 py-2 text-sm text-gray-700`}
-            >
+              className={`${active ? 'bg-gray-50' : ''} flex items-center w-full px-4 py-2 text-sm text-gray-700`}>
+              <LogOut className="h-4 w-4 mr-3" />
               Log Out
             </button>
           )}
