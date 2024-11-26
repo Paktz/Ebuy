@@ -26,6 +26,7 @@ export const orderController = {
           seller: true
         }
       });
+  
 
       if (!order) {
         return res.status(404).json({ message: 'Order not found' });
@@ -35,7 +36,7 @@ export const orderController = {
       if (order.buyerId !== userId && order.sellerId !== userId) {
         return res.status(403).json({ message: 'Not authorized to view this order' });
       }
-
+  
 
       res.json(order);
     } catch (error) {
@@ -47,6 +48,11 @@ export const orderController = {
   async getSellerOrders(req: Request, res: Response) {
     try {
       const userId = req.user?.id;
+      
+      if (!userId) {
+        return res.status(401).json({ message: 'Not authenticated' });
+      }
+
       const orders = await prisma.order.findMany({
         where: {
           sellerId: userId
@@ -75,6 +81,7 @@ export const orderController = {
       res.status(500).json({ message: 'Error fetching orders' });
     }
   },
+  
   async updateOrderStatus(req: Request, res: Response) {
     try {
       const { id } = req.params;
@@ -116,4 +123,40 @@ export const orderController = {
       res.status(500).json({ message: 'Error updating order status' });
     }
   },
+  async getBuyerOrders(req: Request, res: Response) {
+    try {
+      const userId = req.user?.id;
+      const orders = await prisma.order.findMany({
+        where: {
+          buyerId: userId
+        },
+        include: {
+          seller: {
+            select: {
+              username: true,
+              email: true
+            }
+          },
+          items: {
+            include: {
+              product: {
+                select: {
+                  title: true,
+                  images: true
+                }
+              }
+            }
+          }
+        },
+        orderBy: {
+          createdAt: 'desc'
+        }
+      });
+  
+      res.json(orders);
+    } catch (error) {
+      console.error('Get buyer orders error:', error);
+      res.status(500).json({ message: 'Error fetching orders' });
+    }
+  }
 };

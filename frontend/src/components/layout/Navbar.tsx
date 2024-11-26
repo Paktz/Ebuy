@@ -11,7 +11,8 @@ import { ShoppingCart,
         LogOut,
         Store,
         UserCircle,
-        Package, 
+        Package,
+        ClipboardList , 
         } from 'lucide-react';
 import Image from 'next/image';
 import { Menu } from '@headlessui/react';
@@ -158,7 +159,7 @@ export default function Navbar() {
       <div className="py-1">
         <div className="px-4 py-2 text-xs font-semibold text-gray-500 flex items-center">
           <Store className="h-3 w-3 mr-1" />
-          MY STORE
+            MY STORE
         </div>
         <Menu.Item>
           {({ active }) => (
@@ -180,8 +181,17 @@ export default function Navbar() {
             </Link>
           )}
         </Menu.Item>
+        <Menu.Item>
+          {({ active }) => (
+            <Link href="/sell/orders">
+              <span className={`${active ? 'bg-gray-50' : ''} flex items-center px-4 py-2 text-sm text-gray-700`}>
+                <ClipboardList className="h-4 w-4 mr-3" />
+                My Sales
+              </span>
+            </Link>
+          )}
+        </Menu.Item>
       </div>
-
       {/* Logout Section */}
       <div className="py-1">
         <Menu.Item>

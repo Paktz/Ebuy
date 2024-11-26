@@ -1,5 +1,5 @@
 Directory Structure for: D:\CPE334_Project\Ebuy\frontend
-Generated on: 25/11/2024, 7:55:49 pm
+Generated on: 26/11/2024, 11:45:14 am
 ==================================================
 
 ├── .env.local
@@ -37,8 +37,11 @@ Generated on: 25/11/2024, 7:55:49 pm
 │   ├── index.ts
 │   ├── pages
 │   │   ├── cart.tsx
+│   │   ├── checkout.tsx
 │   │   ├── index.tsx
 │   │   ├── login.tsx
+│   │   ├── orders
+│   │   │   └── [id].tsx
 │   │   ├── products
 │   │   │   ├── accessories.tsx
 │   │   │   ├── components.tsx
@@ -55,8 +58,9 @@ Generated on: 25/11/2024, 7:55:49 pm
 │   │   ├── register.tsx
 │   │   ├── sell
 │   │   │   ├── index.tsx
-│   │   │   └── listings
-│   │   │       └── index.tsx
+│   │   │   ├── orders
+│   │   │   │   └── [id].tsx
+│   │   │   └── orders.tsx
 │   │   └── _app.tsx
 │   ├── services
 │   │   └── api.ts
@@ -65,6 +69,7 @@ Generated on: 25/11/2024, 7:55:49 pm
 │   ├── types
 │   │   ├── auth.ts
 │   │   ├── index.ts
+│   │   ├── order.ts
 │   │   └── product.ts
 │   └── utils
 │       ├── api.ts
