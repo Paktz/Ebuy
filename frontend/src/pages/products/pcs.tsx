@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ProductGrid from '../../components/products/ProductGrid';
 import { Filter, ChevronRight, Cpu, Monitor, Zap } from 'lucide-react';
+import { ProductCondition } from '../../types/product';
 
 export default function GamingPcsPage() {
   const [type, setType] = useState('all');
@@ -8,6 +9,7 @@ export default function GamingPcsPage() {
   const [processor, setProcessor] = useState('all');
   const [gpu, setGpu] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
+  const [condition, setCondition] = useState('all');
 
   const pcTypes = [
     {
@@ -62,6 +64,12 @@ export default function GamingPcsPage() {
     { value: 'rtx-4070', label: 'RTX 4070' },
     { value: 'rx-7900', label: 'RX 7900 XT' },
     { value: 'rx-7800', label: 'RX 7800 XT' },
+  ];
+
+  const conditions = [
+    { value: 'NEW', label: 'New' },
+    { value: 'LIKE_NEW', label: 'Like New' },
+    { value: 'USED', label: 'Used' },
   ];
 
   return (
@@ -176,7 +184,18 @@ export default function GamingPcsPage() {
             <option value="2000-3000">$2,000 - $3,000</option>
             <option value="3000-10000">Over $3,000</option>
           </select>
-
+          {/* Condition Filter */}
+          <select
+              className="rounded-md border border-gray-300 px-3 py-2"
+              value={condition}
+              onChange={(e) => setCondition(e.target.value)}>
+              <option value="all">All Conditions</option>
+              {conditions.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
           {/* Sort */}
           <select
             className="rounded-md border border-gray-300 px-3 py-2"
@@ -201,6 +220,7 @@ export default function GamingPcsPage() {
           minPrice: priceRange[0],
           maxPrice: priceRange[1],
           sortBy,
+          condition: condition !== 'all' ? condition as ProductCondition : undefined,
         }}
       />
     </div>

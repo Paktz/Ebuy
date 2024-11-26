@@ -26,8 +26,22 @@ export default function SellerListingsPage() {
         await productApi.deleteProduct(productId);
         showToast.success('Listing deleted successfully');
         refetch();
-      } catch (error) {
-        showToast.error('Failed to delete listing');
+      } catch (error: any) {
+        // Check if error is related to existing orders
+        if (error.response?.status === 400 && error.response?.data?.error === 'Product is referenced in orders') {
+          // Ask user if they want to deactivate instead
+          if (window.confirm('This product cannot be deleted because it has existing orders. Would you like to mark it as inactive instead?')) {
+            try {
+              await productApi.updateProduct(productId, { status: 'INACTIVE' });
+              showToast.success('Listing marked as inactive');
+              refetch();
+            } catch (updateError) {
+              showToast.error('Failed to update listing status');
+            }
+          }
+        } else {
+          showToast.error('Failed to delete listing');
+        }
       }
     }
   };

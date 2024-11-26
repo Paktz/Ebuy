@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ProductGrid from '../../components/products/ProductGrid';
 import { Filter, ChevronRight, Monitor, Keyboard, Mouse, Headphones, Speaker, Camera, Gamepad, Star } from 'lucide-react';
+import { ProductCondition } from '../../types/product';
 
 export default function PeripheralsPage() {
   const [subcategory, setSubcategory] = useState('all');
@@ -8,6 +9,7 @@ export default function PeripheralsPage() {
   const [brand, setBrand] = useState('all');
   const [style, setStyle] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
+  const [condition, setCondition] = useState('all');
 
   const categories = [
     {
@@ -112,6 +114,12 @@ export default function PeripheralsPage() {
         { value: 'webcam', label: 'Webcam' }
       ]
     }
+  ];
+
+  const conditions = [
+    { value: 'NEW', label: 'New' },
+    { value: 'LIKE_NEW', label: 'Like New' },
+    { value: 'USED', label: 'Used' },
   ];
 
   const getPriceRanges = () => {
@@ -259,6 +267,19 @@ export default function PeripheralsPage() {
             <option value="steelseries">SteelSeries</option>
           </select>
 
+          {/* Condition Filter */}
+          <select
+              className="rounded-md border border-gray-300 px-3 py-2"
+              value={condition}
+              onChange={(e) => setCondition(e.target.value)}>
+              <option value="all">All Conditions</option>
+              {conditions.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
+
           {/* Sort */}
           <select
             className="rounded-md border border-gray-300 px-3 py-2"
@@ -283,6 +304,7 @@ export default function PeripheralsPage() {
           minPrice: priceRange[0],
           maxPrice: priceRange[1],
           sortBy,
+          condition: condition !== 'all' ? condition as ProductCondition : undefined,
         }}
       />
     </div>

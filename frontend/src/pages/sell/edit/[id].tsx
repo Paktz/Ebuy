@@ -1,26 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '../../context/AuthContext';
-import { productApi } from '../../services/api';
-import { showToast } from '../../utils/toast';
+import { useQuery } from '@tanstack/react-query';
+import { productApi } from '../../../services/api';
+import { showToast } from '../../../utils/toast';
 import { 
-  Package, 
+  Loader2, 
   Images, 
-  DollarSign, 
-  Plus,
   Trash2,
-  Loader2 
+  Save,
+  ArrowLeft
 } from 'lucide-react';
-import { CreateProductDTO, Product } from '../../types/product';
+import { Product, UpdateProductDTO } from '../../../types/product';
 
 type SpecField = {
   key: string;
   value: string;
 };
 
-export default function CreateListingPage() {
+export default function EditProductPage() {
   const router = useRouter();
-  const { isLoggedIn } = useAuth();
+  const { id } = router.query;
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<string[]>([]);
   const [specs, setSpecs] = useState<SpecField[]>([{ key: '', value: '' }]);
@@ -29,17 +28,43 @@ export default function CreateListingPage() {
     title: '',
     description: '',
     price: '',
-    condition: 'NEW',
+    condition: '',
     category: '',
     subcategory: '',
-    quantity: '1'
+    quantity: '1',
+    status: 'ACTIVE'
   });
 
-  // Redirect if not logged in
-  if (!isLoggedIn) {
-    router.push('/login');
-    return null;
-  }
+  // Fetch product data
+  const { data: product, isLoading: isFetching } = useQuery<Product>({
+    queryKey: ['product', id],
+    queryFn: () => productApi.getProduct(id as string),
+    enabled: !!id,
+  });
+  useEffect(() => {
+    if (product) {
+      setFormData({
+        title: product.title,
+        description: product.description || '',
+        price: product.price.toString(),
+        condition: product.condition,
+        category: product.category,
+        subcategory: product.subcategory || '',
+        quantity: product.quantity.toString(),
+        status: product.status
+      });
+      setImages(product.images);
+      
+      if (product.specs) {
+        const specArray = Object.entries(product.specs as Record<string, string>).map(([key, value]) => ({
+          key,
+          value: value.toString()
+        }));
+        setSpecs(specArray.length > 0 ? specArray : [{ key: '', value: '' }]);
+      }
+    }
+  }, [product]);
+  
 
   const mainCategories = [
     { value: 'GAMING_PCS', label: 'Gaming PCs' },
@@ -49,6 +74,7 @@ export default function CreateListingPage() {
     { value: 'PERIPHERALS', label: 'Peripherals' },
     { value: 'ACCESSORIES', label: 'Accessories' }
   ];
+    
 
   const getSubcategories = (mainCategory: string) => {
     switch (mainCategory) {
@@ -109,15 +135,14 @@ export default function CreateListingPage() {
     setIsLoading(true);
 
     try {
-      // Convert specs array to object
-      const specsObject = specs.reduce((acc, { key, value }) => {
+      const specsObject = specs.reduce((acc: Record<string, string>, { key, value }) => {
         if (key && value) {
           acc[key] = value;
         }
         return acc;
-      }, {} as Record<string, string>);
+      }, {});
 
-      const productData: CreateProductDTO = {
+      const productData: UpdateProductDTO = {
         title: formData.title,
         description: formData.description || undefined,
         price: parseFloat(formData.price),
@@ -125,29 +150,47 @@ export default function CreateListingPage() {
         category: formData.category,
         subcategory: formData.subcategory || undefined,
         quantity: parseInt(formData.quantity),
+        status: formData.status as 'ACTIVE' | 'SOLD' | 'RESERVED',
         images: images,
         specs: specsObject
       };
 
-      const createdProduct = await productApi.createProduct(productData);
-      showToast.success('Listing created successfully!');
-      router.push(`/products/${createdProduct.id}`);
+      await productApi.updateProduct(id as string, productData);
+      showToast.success('Product updated successfully!');
+      router.push('/sell/listings');
     } catch (error) {
-      showToast.error('Failed to create listing');
-      console.error('Error creating listing:', error);
+      showToast.error('Failed to update product');
+      console.error('Error updating product:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
+  if (isFetching) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Loader2 className="w-8 h-8 animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="space-y-8">
+        {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Create New Listing</h1>
-          <p className="mt-2 text-gray-600">
-            Fill out the details below to list your item for sale
-          </p>
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={() => router.back()}
+              className="p-2 hover:bg-gray-100 rounded-full"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Edit Product</h1>
+              <p className="mt-1 text-gray-600">Update your product listing</p>
+            </div>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
@@ -186,24 +229,8 @@ export default function CreateListingPage() {
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 />
               </div>
-              <div>
-                <label htmlFor="condition" className="block text-sm font-medium text-gray-700">
-                      Condition
-                    </label>
-                    <select
-                      id="condition"
-                      name="condition"
-                      required
-                      value={formData.condition}
-                      onChange={handleInputChange}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                      <option value="">Select Condition</option>
-                      <option value="NEW">New</option>
-                      <option value="LIKE_NEW">Like New</option>
-                      <option value="USED">Used</option>
-                    </select>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label htmlFor="price" className="block text-sm font-medium text-gray-700">
                     Price ($)
@@ -235,6 +262,23 @@ export default function CreateListingPage() {
                     onChange={handleInputChange}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                   />
+                </div>
+
+                <div>
+                  <label htmlFor="status" className="block text-sm font-medium text-gray-700">
+                    Status
+                  </label>
+                  <select
+                    id="status"
+                    name="status"
+                    value={formData.status}
+                    onChange={handleInputChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  >
+                    <option value="ACTIVE">Active</option>
+                    <option value="RESERVED">Reserved</option>
+                    <option value="SOLD">Sold</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -268,7 +312,7 @@ export default function CreateListingPage() {
                 </select>
               </div>
 
-              {formData.category && (
+              {formData.category && getSubcategories(formData.category).length > 0 && (
                 <div>
                   <label htmlFor="subcategory" className="block text-sm font-medium text-gray-700">
                     Subcategory
@@ -303,7 +347,6 @@ export default function CreateListingPage() {
                 onClick={addSpecField}
                 className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200"
               >
-                <Plus className="w-4 h-4 mr-1" />
                 Add Spec
               </button>
             </div>
@@ -384,19 +427,29 @@ export default function CreateListingPage() {
           </div>
 
           {/* Submit Button */}
-          <div className="flex justify-end">
+          <div className="flex justify-end space-x-4">
+            <button
+              type="button"
+              onClick={() => router.back()}
+              className="px-6 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Cancel
+            </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                  Creating...
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Saving...
                 </>
               ) : (
-                'Create Listing'
+                <>
+                  <Save className="w-4 h-4 mr-2" />
+                  Save Changes
+                </>
               )}
             </button>
           </div>

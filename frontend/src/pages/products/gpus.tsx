@@ -3,6 +3,7 @@ import ProductGrid from '../../components/products/ProductGrid';
 import { Filter, ChevronRight, Cpu, Monitor, Zap, Activity } from 'lucide-react';
 import NvidiaLogo from '../../../public/images/Nvidia-logo.png';
 import RadeonLogo from '../../../public/images/RADEON-Logo.png';
+import { ProductCondition } from '../../types/product';
 
 export default function GpusPage() {
   const [manufacturer, setManufacturer] = useState('all');
@@ -55,6 +56,12 @@ export default function GpusPage() {
     { value: '12GB', label: '12GB VRAM' },
     { value: '16GB', label: '16GB VRAM' },
     { value: '24GB', label: '24GB VRAM' }
+  ];
+
+  const conditions = [
+    { value: 'NEW', label: 'New' },
+    { value: 'LIKE_NEW', label: 'Like New' },
+    { value: 'USED', label: 'Used' },
   ];
 
   return (
@@ -138,7 +145,22 @@ export default function GpusPage() {
                 </div>
               </>
             )}
-            {/* Similar blocks for AMD and Workstation */}
+            {manufacturer === 'AMD' && (
+              <>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="text-sm font-medium text-gray-600">Entry Level</div>
+                  <div className="text-xs text-gray-500">RTX 3050, RTX 3060</div>
+                </div>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="text-sm font-medium text-gray-600">Mid Range</div>
+                  <div className="text-xs text-gray-500">RTX 3070, RTX 3080</div>
+                </div>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="text-sm font-medium text-gray-600">High End</div>
+                  <div className="text-xs text-gray-500">RTX 3090, RTX 4090</div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
@@ -149,7 +171,7 @@ export default function GpusPage() {
           <Filter className="w-5 h-5 text-gray-500" />
           <span className="font-medium text-gray-700">Filters</span>
         </div>
-
+          
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Memory Size Filter */}
           <select
@@ -181,16 +203,17 @@ export default function GpusPage() {
           </select>
 
           {/* Condition Filter */}
-          <select
-            className="rounded-md border border-gray-300 px-3 py-2"
-            value={condition}
-            onChange={(e) => setCondition(e.target.value)}
-          >
-            <option value="all">All Conditions</option>
-            <option value="new">New</option>
-            <option value="like-new">Like New</option>
-            <option value="used">Used</option>
-          </select>
+            <select
+              className="rounded-md border border-gray-300 px-3 py-2"
+              value={condition}
+              onChange={(e) => setCondition(e.target.value)}>
+              <option value="all">All Conditions</option>
+              {conditions.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
 
           {/* Sort */}
           <select
@@ -205,16 +228,16 @@ export default function GpusPage() {
           </select>
         </div>
       </div>
-
+            
       {/* Product Grid */}
       <ProductGrid
         category="GPUS"
         filter={{
-          manufacturer: manufacturer !== 'all' ? manufacturer : undefined,
+          subcategory: manufacturer !== 'all' ? manufacturer : undefined,
           memorySize: memorySize !== 'all' ? memorySize : undefined,
           minPrice: priceRange[0],
           maxPrice: priceRange[1],
-          condition: condition !== 'all' ? condition : undefined,
+          condition: condition !== 'all' ? condition as ProductCondition : undefined,
           sortBy,
         }}
       />

@@ -16,6 +16,7 @@ export default function ProductGrid({ category, searchQuery, filter }: ProductGr
     queryFn: () => productApi.getProducts({ 
       category, 
       search: searchQuery,
+      status: 'ACTIVE',
       ...filter
     })
   });

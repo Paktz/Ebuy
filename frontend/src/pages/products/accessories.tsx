@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import ProductGrid from '../../components/products/ProductGrid';
 import { Filter, ChevronRight, Tag, Star } from 'lucide-react';
-
+import { ProductCondition } from '../../types/product';
 export default function AccessoriesPage() {
   const [subcategory, setSubcategory] = useState('all');
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 200]);
   const [sortBy, setSortBy] = useState('newest');
   const [featured, setFeatured] = useState(false);
+  const [condition, setCondition] = useState('all');
 
   const subcategories = [
     { value: 'all', label: 'All Accessories', icon: '🎮' },
@@ -32,6 +33,12 @@ export default function AccessoriesPage() {
         return [];
     }
   };
+
+  const conditions = [
+    { value: 'NEW', label: 'New' },
+    { value: 'LIKE_NEW', label: 'Like New' },
+    { value: 'USED', label: 'Used' },
+  ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -101,7 +108,19 @@ export default function AccessoriesPage() {
           <Filter className="w-5 h-5 text-gray-500" />
           <span className="font-medium text-gray-700">Filters</span>
         </div>
-
+             {/* Condition Filter */}
+    <select
+      className="rounded-md border-gray-300 px-3 py-2"
+      value={condition}
+      onChange={(e) => setCondition(e.target.value as ProductCondition | 'all')}
+    >
+      <option value="all">All Conditions</option>
+      {conditions.map((c) => (
+        <option key={c.value} value={c.value}>
+          {c.label}
+        </option>
+      ))}
+    </select>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* Price Range Filter */}
           <select
@@ -118,7 +137,7 @@ export default function AccessoriesPage() {
             <option value="50-100">$50 - $100</option>
             <option value="100-200">Over $100</option>
           </select>
-
+              
           {/* Featured Toggle */}
           <button
             onClick={() => setFeatured(!featured)}
@@ -133,6 +152,7 @@ export default function AccessoriesPage() {
               <span>Featured Items</span>
             </div>
           </button>
+          
 
           {/* Sort */}
           <select
@@ -156,7 +176,9 @@ export default function AccessoriesPage() {
           minPrice: priceRange[0],
           maxPrice: priceRange[1],
           featured: featured,
+          condition: condition !== 'all' ? condition as ProductCondition : undefined,
           sortBy,
+          
         }}
       />
     </div>

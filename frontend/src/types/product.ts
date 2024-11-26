@@ -5,6 +5,7 @@ export interface Product {
   price: number;
   condition: string;
   category: string;
+  subcategory?: string;
   images: string[];
   specs: Record<string, any> | null;
   status: string;
@@ -87,8 +88,20 @@ export interface CartItem {
     quantity: number;  // Added this field
   }
   
-  export interface UpdateProductDTO extends Partial<CreateProductDTO> {
-    status?: string;
-  }
   
+  export interface UpdateProductDTO {
+    title?: string;
+    description?: string;
+    price?: number;
+    condition?: string;
+    category?: string;
+    subcategory?: string;
+    images?: string[];
+    specs?: Record<string, string>;
+    status?: 'ACTIVE' | 'SOLD' | 'RESERVED';
+    quantity?: number;
+  }
+
+  export type ProductCondition = 'NEW' | 'LIKE_NEW' | 'USED';
+
   

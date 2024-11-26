@@ -14,97 +14,132 @@ export const checkoutController = {
     }
 
     try {
-      // Get user's cart with products
-      const cart = await prisma.cart.findUnique({
-        where: { userId },
-        include: {
-          items: {
-            include: {
-              product: true
+      // Start transaction with increased timeout
+      const result = await prisma.$transaction(async (prisma) => {
+        // Get user's cart with products
+        const cart = await prisma.cart.findUnique({
+          where: { userId },
+          include: {
+            items: {
+              include: {
+                product: true
+              }
             }
           }
+        });
+
+        if (!cart?.items.length) {
+          throw new Error('Cart is empty');
         }
-      });
 
-      if (!cart?.items.length) {
-        return res.status(400).json({ message: 'Cart is empty' });
-      }
+        // Get shipping address
+        const address = await prisma.shippingAddress.findUnique({
+          where: { id: addressId }
+        });
 
-      // Get shipping address
-      const address = await prisma.shippingAddress.findUnique({
-        where: { id: addressId }
-      });
-
-      if (!address) {
-        return res.status(400).json({ message: 'Invalid shipping address' });
-      }
-
-      // Group items by seller
-      const itemsBySeller: Record<string, typeof cart.items> = {};
-      for (const item of cart.items) {
-        const sellerId = item.product.sellerId;
-        if (!itemsBySeller[sellerId]) {
-          itemsBySeller[sellerId] = [];
+        if (!address) {
+          throw new Error('Invalid shipping address');
         }
-        itemsBySeller[sellerId].push(item);
-      }
 
-      // Create orders for each seller
-      const orders = await Promise.all(
-        Object.entries(itemsBySeller).map(async ([sellerId, items]) => {
-          // Calculate total amount
-          const totalAmount = items.reduce(
-            (sum, item) => sum + Number(item.product.price) * item.quantity,
-            0
-          );
+        // Group items by seller
+        const itemsBySeller: Record<string, typeof cart.items> = {};
+        for (const item of cart.items) {
+          const sellerId = item.product.sellerId;
+          if (!itemsBySeller[sellerId]) {
+            itemsBySeller[sellerId] = [];
+          }
+          itemsBySeller[sellerId].push(item);
+        }
 
-          // Create order
-          return prisma.order.create({
+        // Verify product availability and update quantities
+        for (const item of cart.items) {
+          const product = await prisma.product.findUnique({
+            where: { id: item.productId }
+          });
+
+          if (!product) {
+            throw new Error(`Product ${item.productId} not found`);
+          }
+
+          if (product.status !== 'ACTIVE') {
+            throw new Error(`Product ${product.title} is no longer available`);
+          }
+
+          if (product.quantity < item.quantity) {
+            throw new Error(`Insufficient quantity for ${product.title}`);
+          }
+
+          // Update product quantity
+          const newQuantity = product.quantity - item.quantity;
+          await prisma.product.update({
+            where: { id: product.id },
             data: {
-              buyerId: userId,
-              sellerId: sellerId,
-              totalAmount: new Prisma.Decimal(totalAmount),
-              shippingAddress: address as any, // Convert address to JSON
-              items: {
-                create: items.map(item => ({
-                  productId: item.product.id,
-                  quantity: item.quantity,
-                  price: item.product.price
-                }))
-              },
-              status: 'PENDING'
-            },
-            include: {
-              items: {
-                include: {
-                  product: true
-                }
-              },
-              buyer: true,
-              seller: true
+              quantity: newQuantity,
+              status: newQuantity === 0 ? 'SOLD' : 'ACTIVE'
             }
           });
-        })
-      );
+        }
 
-      // Clear the cart after successful order creation
-      await prisma.cartItem.deleteMany({
-        where: { cartId: cart.id }
+        // Create orders for each seller
+        const orders = await Promise.all(
+          Object.entries(itemsBySeller).map(async ([sellerId, items]) => {
+            const totalAmount = items.reduce(
+              (sum, item) => sum + Number(item.product.price) * item.quantity,
+              0
+            );
+
+            return prisma.order.create({
+              data: {
+                buyerId: userId,
+                sellerId: sellerId,
+                totalAmount: new Prisma.Decimal(totalAmount),
+                shippingAddress: address as any,
+                items: {
+                  create: items.map(item => ({
+                    productId: item.product.id,
+                    quantity: item.quantity,
+                    price: item.product.price
+                  }))
+                },
+                status: 'PENDING'
+              },
+              include: {
+                items: {
+                  include: {
+                    product: true
+                  }
+                },
+                buyer: true,
+                seller: true
+              }
+            });
+          })
+        );
+
+        // Clear the cart
+        await prisma.cartItem.deleteMany({
+          where: { cartId: cart.id }
+        });
+
+        return orders; // Return orders from transaction
+      }, {
+        timeout: 15000, // Increase timeout to 15 seconds
+        maxWait: 20000 // Maximum time to wait for transaction to start
       });
 
-      // Send confirmation emails
-      for (const order of orders) {
+      // Send confirmation emails outside of transaction
+      for (const order of result) {
         try {
           await sendOrderConfirmationEmail(order);
         } catch (emailError) {
           console.error('Failed to send email for order:', order.id, emailError);
-          // Continue with the response even if email fails
         }
       }
 
-      res.status(201).json({ 
+      // Send response
+      return res.status(201).json({ 
         message: 'Orders created successfully',
-        orders: orders.map(order => ({
+        orders: result.map(order => ({
           id: order.id,
           totalAmount: order.totalAmount,
           status: order.status,
@@ -115,7 +150,7 @@ export const checkoutController = {
     } catch (error) {
       console.error('Checkout error:', error);
       res.status(500).json({ 
-        message: 'Error processing checkout',
+        message: error instanceof Error ? error.message : 'Error processing checkout',
         error: error instanceof Error ? error.message : 'Unknown error'
       });
     }
