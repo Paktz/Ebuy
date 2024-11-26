@@ -182,6 +182,15 @@ export const cartApi = {
   removeFromCart: async (itemId: string) => {
     await api.delete(`/cart/items/${itemId}`);
   },
+  getSellerOrders: async () => {
+    const response = await api.get('/orders/seller/orders');
+    return response.data;
+  },
+
+  getBuyerOrders: async () => {
+    const response = await api.get('/orders');
+    return response.data;
+  },
 
   
 };

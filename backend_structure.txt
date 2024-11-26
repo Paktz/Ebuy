@@ -1,5 +1,5 @@
 Directory Structure for: D:\CPE334_Project\Ebuy\backend
-Generated on: 25/11/2024, 7:56:03 pm
+Generated on: 26/11/2024, 11:44:30 am
 ==================================================
 
 ├── .env
@@ -45,14 +45,21 @@ Generated on: 25/11/2024, 7:56:03 pm
 │   │   │   └── migration.sql
 │   │   ├── 20241124075153_add_subcategory_field
 │   │   │   └── migration.sql
+│   │   ├── 20241125175351_add_addresses
+│   │   │   └── migration.sql
+│   │   ├── 20241126043443_fixed_order
+│   │   │   └── migration.sql
 │   │   └── migration_lock.toml
 │   └── schema.prisma
 ├── src
 │   ├── config
 │   │   └── database.ts
 │   ├── controllers
+│   │   ├── addressController.ts
 │   │   ├── authController.ts
 │   │   ├── cartController.ts
+│   │   ├── checkoutController.ts
+│   │   ├── orderController.ts
 │   │   ├── productController.ts
 │   │   ├── profile.ts
 │   │   └── userController.ts
@@ -64,8 +71,11 @@ Generated on: 25/11/2024, 7:56:03 pm
 │   ├── models
 │   │   └── index.ts
 │   ├── routes
+│   │   ├── addresses.ts
 │   │   ├── auth.ts
 │   │   ├── cart.ts
+│   │   ├── checkout.ts
+│   │   ├── orders.ts
 │   │   ├── products.ts
 │   │   ├── profile.ts
 │   │   └── users.ts
@@ -75,6 +85,7 @@ Generated on: 25/11/2024, 7:56:03 pm
 │   │   ├── auth.ts
 │   │   └── product.ts
 │   └── utils
+│       ├── email.ts
 │       ├── jwt.ts
 │       └── validation.ts
 └── tsconfig.json
