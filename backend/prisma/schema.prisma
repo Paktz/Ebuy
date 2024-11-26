@@ -27,7 +27,8 @@ model User {
   sellerOrders     Order[]   @relation("Seller")
   sentMessages     Message[] @relation("MessageSender")
   receivedMessages Message[] @relation("MessageReceiver")
-  //reviews          Review[]   // Reviews written by the user
+  addresses        ShippingAddress[]
+  //reviews        Review[]   // Reviews written by the user
 }
 
 model Product {
@@ -80,16 +81,17 @@ model CartItem {
 }
 
 model Order {
-  id          String      @id @default(uuid())
-  buyer       User        @relation("Buyer", fields: [buyerId], references: [id])
-  buyerId     String
-  seller      User        @relation("Seller", fields: [sellerId], references: [id])
-  sellerId    String
-  items       OrderItem[]
-  status      String      @default("PENDING") // PENDING, PAID, SHIPPED, DELIVERED, CANCELLED
-  totalAmount Decimal
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id              String      @id @default(uuid())
+  buyer           User        @relation("Buyer", fields: [buyerId], references: [id])
+  buyerId         String
+  seller          User        @relation("Seller", fields: [sellerId], references: [id])
+  sellerId        String
+  items           OrderItem[]
+  status          OrderStatus @default(PENDING)  // Keep this one and remove the other status field
+  totalAmount     Decimal
+  shippingAddress Json
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 }
 
 model OrderItem {
@@ -113,4 +115,31 @@ model Message {
   content    String
   read       Boolean  @default(false)
   createdAt  DateTime @default(now())
+}
+
+model ShippingAddress {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  fullName  String
+  address1  String
+  address2  String?
+  city      String
+  state     String
+  zipCode   String
+  country   String
+  phone     String?
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELLED
 }

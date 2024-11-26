@@ -104,8 +104,7 @@ export default function CartPage() {
             {/* Remove Button */}
             <button
               onClick={() => removeFromCart(item.id)}
-              className="p-2 text-gray-400 hover:text-red-500"
-            >
+              className="p-2 text-gray-400 hover:text-red-500">
               <Trash2 className="w-5 h-5" />
             </button>
           </div>
@@ -118,16 +117,11 @@ export default function CartPage() {
           <span className="text-gray-600">Subtotal</span>
           <span className="font-medium">{formatPrice(subtotal)}</span>
         </div>
-
-        <button
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
-          onClick={() => {
-            // TODO: Implement checkout
-            alert('Checkout functionality coming soon!');
-          }}
-        >
+        <Link 
+          href="/checkout"
+          className="block w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors text-center">
           Proceed to Checkout
-        </button>
+        </Link>
       </div>
     </div>
   );
