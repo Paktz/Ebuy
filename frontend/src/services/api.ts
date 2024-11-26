@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { showToast } from '../utils/toast';
-import { Product, ProductDetailResponse, ProductResponse } from '../types/product';
+import { Product, ProductDetailResponse, ProductResponse, UpdateProductDTO } from '../types/product';
 interface ApiErrorResponse {
   message: string;
   errors?: Array<{
@@ -191,7 +191,11 @@ export const cartApi = {
     const response = await api.get('/orders');
     return response.data;
   },
-
+  updateProduct: async (id: string, productData: UpdateProductDTO) => {
+    const response = await api.put(`/products/${id}`, productData);
+    return response.data;
+  },
+  
   
 };
 
