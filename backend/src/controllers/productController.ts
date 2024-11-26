@@ -12,6 +12,7 @@ const ProductController = {
     try {
       const {
         category,
+        subcategory,
         condition,
         minPrice,
         maxPrice,
@@ -25,7 +26,9 @@ const ProductController = {
 
       const where: Prisma.ProductWhereInput = {
         AND: [
+          { status: 'ACTIVE' },
           category ? { category: category as string } : {},
+          subcategory ? { subcategory: subcategory as string } : {},
           condition ? { condition: condition as string } : {},
           status ? { status: status as string } : {},
           minPrice || maxPrice
@@ -278,31 +281,95 @@ const ProductController = {
     try {
       const { id } = req.params;
       const userId = req.user?.id;
-
+  
       const existingProduct = await prisma.product.findUnique({
         where: { id },
       });
-
+  
       if (!existingProduct) {
         res.status(404).json({ message: 'Product not found' });
         return;
       }
-
+  
       if (existingProduct.sellerId !== userId) {
         res.status(403).json({ message: 'Unauthorized to delete this product' });
         return;
       }
-
-      await prisma.product.delete({
-        where: { id },
+  
+      // Use transaction to handle all related deletions
+      await prisma.$transaction(async (prisma) => {
+        // First, delete any cart items referencing this product
+        await prisma.cartItem.deleteMany({
+          where: { productId: id }
+        });
+  
+        // Now safe to delete the product
+        await prisma.product.delete({
+          where: { id }
+        });
       });
-
+  
       res.status(204).send();
     } catch (error) {
       console.error('Error deleting product:', error);
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2003') {
+          // Foreign key constraint error
+          res.status(400).json({
+            message: 'Cannot delete product because it is part of existing orders. Consider marking it as inactive instead.',
+            error: 'Product is referenced in orders'
+          });
+          return;
+        }
+      }
+
       res.status(500).json({
         message: 'Error deleting product',
         error: error instanceof Error ? error.message : 'Unknown error',
+      });
+    }
+  },
+  
+  async deactivateProduct(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+      const userId = req.user?.id;
+  
+      const existingProduct = await prisma.product.findUnique({
+        where: { id }
+      });
+  
+      if (!existingProduct) {
+        res.status(404).json({ message: 'Product not found' });
+        return;
+      }
+  
+      if (existingProduct.sellerId !== userId) {
+        res.status(403).json({ message: 'Unauthorized to update this product' });
+        return;
+      }
+  
+      const updatedProduct = await prisma.product.update({
+        where: { id },
+        data: { 
+          status: 'INACTIVE',
+        },
+        include: {
+          seller: {
+            select: {
+              username: true,
+              email: true,
+            },
+          },
+        },
+      });
+  
+      res.json(updatedProduct);
+    } catch (error) {
+      console.error('Error deactivating product:', error);
+      res.status(500).json({
+        message: 'Error deactivating product',
+        error: error instanceof Error ? error.message : 'Unknown error'
       });
     }
   },

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import { cartApi } from '../services/api';
+import { cartApi, productApi } from '../services/api';
 import { showToast } from '../utils/toast';
 import { CartItem } from '../types/product';
 import axios from 'axios';
@@ -85,12 +85,22 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const addToCart = async (productId: string, quantity: number = 1) => {
     try {
       dispatch({ type: 'SET_LOADING', payload: true });
+
+      // First check if product is still available
+    const product = await productApi.getProduct(productId);
+    if (product.status !== 'ACTIVE') {
+      showToast.error('This product is no longer available');
+      return;
+    }
+
       // Make API call
       const response = await cartApi.addToCart(productId, quantity);
+
       // Only show success toast and fetch cart if API call succeeds
       await fetchCart();
       showToast.success('Added to cart!');
       return response;
+      
     } catch (error: any) {
       // Handle error toast
       const errorMessage = error.response?.data?.message || 'Failed to add item to cart';

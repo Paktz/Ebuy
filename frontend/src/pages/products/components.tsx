@@ -19,6 +19,11 @@ export default function ComponentsPage() {
     { value: 'CASE', label: 'PC Cases' },
     { value: 'COOLING', label: 'Cooling' },
   ];
+  const conditions = [
+    { value: 'NEW', label: 'New' },
+    { value: 'LIKE_NEW', label: 'Like New' },
+    { value: 'USED', label: 'Used' },
+  ];
 
   // Dynamic secondary filters based on subcategory
   const getSecondaryFilter = () => {
@@ -182,15 +187,16 @@ export default function ComponentsPage() {
 
           {/* Condition Filter */}
           <select
-            className="rounded-md border border-gray-300 px-3 py-2"
-            value={condition}
-            onChange={(e) => setCondition(e.target.value)}
-          >
-            <option value="all">All Conditions</option>
-            <option value="new">New</option>
-            <option value="like-new">Like New</option>
-            <option value="used">Used</option>
-          </select>
+              className="rounded-md border border-gray-300 px-3 py-2"
+              value={condition}
+              onChange={(e) => setCondition(e.target.value)}>
+              <option value="all">All Conditions</option>
+              {conditions.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
 
           {/* Sort */}
           <select

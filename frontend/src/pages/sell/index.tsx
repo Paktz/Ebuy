@@ -186,7 +186,23 @@ export default function CreateListingPage() {
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 />
               </div>
-
+              <div>
+                <label htmlFor="condition" className="block text-sm font-medium text-gray-700">
+                      Condition
+                    </label>
+                    <select
+                      id="condition"
+                      name="condition"
+                      required
+                      value={formData.condition}
+                      onChange={handleInputChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                      <option value="">Select Condition</option>
+                      <option value="NEW">New</option>
+                      <option value="LIKE_NEW">Like New</option>
+                      <option value="USED">Used</option>
+                    </select>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="price" className="block text-sm font-medium text-gray-700">

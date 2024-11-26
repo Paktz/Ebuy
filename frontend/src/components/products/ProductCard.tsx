@@ -56,7 +56,11 @@ const ProductCard = ({ product }: { product: Product }) => {
       }
     }
   };
-
+  
+  if (product.status === 'SOLD') {
+    return null;
+  }
+  const isOutOfStock = product.quantity === 0;
   return (
     <div 
       className="bg-white rounded-lg border shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden cursor-pointer transform hover:-translate-y-1"
@@ -73,6 +77,19 @@ const ProductCard = ({ product }: { product: Product }) => {
 
       {/* Content */}
       <div className="p-4">
+        {/* Add status badge */}
+          {product.status !== 'ACTIVE' && (
+            <div className="absolute top-2 right-2 z-10">
+              <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                product.status === 'RESERVED' 
+                ? 'bg-yellow-100 text-yellow-800'
+                : 'bg-red-100 text-red-800'
+              }`}>
+              {product.status}
+              </span>
+            </div>
+          )}
+
         {/* Badges */}
         <div className="flex flex-wrap gap-2 mb-2">
           <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
@@ -117,6 +134,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           isLoading || 
           product.status !== 'ACTIVE' || 
           product.quantity === 0 ||
+          isOutOfStock ||
           isOwnProduct
         }
         className={`w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-medium 
@@ -125,8 +143,9 @@ const ProductCard = ({ product }: { product: Product }) => {
           disabled:cursor-not-allowed`}
       >
         {isLoading ? 'Adding...' : 
-         product.quantity === 0 ? 'Out of Stock' :
+         product.status !== 'ACTIVE' ? product.status :
          isOwnProduct ? 'Your Product' :
+         isOutOfStock ? 'Out of Stock' :
          'Add to Cart'}
       </button>
       </div>

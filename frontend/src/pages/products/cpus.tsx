@@ -3,6 +3,7 @@ import ProductGrid from '../../components/products/ProductGrid';
 import { Filter, ChevronRight, Cpu, Zap, Microchip, Activity } from 'lucide-react';
 import IntelLogo from '../../../public/images/intel-logo.png';
 import AMDLogo from '../../../public/images/AMD-Logo.png';
+import { ProductCondition } from '../../types/product';
 
 export default function CpusPage() {
   const [manufacturer, setManufacturer] = useState('all');
@@ -72,7 +73,11 @@ export default function CpusPage() {
     { value: '12', label: '12 Cores' },
     { value: '16', label: '16+ Cores' }
   ];
-
+  const conditions = [
+    { value: 'NEW', label: 'New' },
+    { value: 'LIKE_NEW', label: 'Like New' },
+    { value: 'USED', label: 'Used' }
+  ] as const;
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header with Breadcrumb */}
@@ -197,15 +202,14 @@ export default function CpusPage() {
           </select>
 
           {/* Condition Filter */}
-          <select
-            className="rounded-md border border-gray-300 px-3 py-2"
-            value={condition}
-            onChange={(e) => setCondition(e.target.value)}
-          >
-            <option value="all">All Conditions</option>
-            <option value="new">New</option>
-            <option value="like-new">Like New</option>
-            <option value="used">Used</option>
+          <select className="rounded-md border border-gray-300 px-3 py-2"value={condition}
+              onChange={(e) => setCondition(e.target.value as ProductCondition | 'all')}>
+              <option value="all">All Conditions</option>
+                {conditions.map((c) => (
+              <option key={c.value} value={c.value}>
+              {c.label}
+              </option>
+              ))}
           </select>
 
           {/* Sort */}
@@ -226,7 +230,7 @@ export default function CpusPage() {
       <ProductGrid
         category="CPUS"
         filter={{
-          manufacturer: manufacturer !== 'all' ? manufacturer : undefined,
+          subcategory: manufacturer !== 'all' ? manufacturer : undefined,
           series: series !== 'all' ? series : undefined,
           cores: cores !== 'all' ? cores : undefined,
           minPrice: priceRange[0],

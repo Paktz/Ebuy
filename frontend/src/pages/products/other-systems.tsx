@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ProductGrid from '../../components/products/ProductGrid';
 import { Filter, ChevronRight, Server, Cpu, Monitor, Shield } from 'lucide-react';
+import { ProductCondition } from '../../types/product';
 
 export default function OtherSystemsPage() {
   const [subcategory, setSubcategory] = useState('all');
@@ -53,7 +54,11 @@ export default function OtherSystemsPage() {
       { value: 'HTPC', label: 'HTPC' },
     ],
   };
-
+  const conditions = [
+    { value: 'NEW', label: 'New' },
+    { value: 'LIKE_NEW', label: 'Like New' },
+    { value: 'USED', label: 'Used' },
+  ];
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header with Breadcrumb */}
@@ -152,16 +157,16 @@ export default function OtherSystemsPage() {
 
           {/* Condition Filter */}
           <select
-            className="rounded-md border border-gray-300 px-3 py-2"
-            value={condition}
-            onChange={(e) => setCondition(e.target.value)}
-          >
-            <option value="all">All Conditions</option>
-            <option value="new">New</option>
-            <option value="like-new">Like New</option>
-            <option value="used">Used</option>
-            <option value="refurbished">Refurbished</option>
-          </select>
+              className="rounded-md border border-gray-300 px-3 py-2"
+              value={condition}
+              onChange={(e) => setCondition(e.target.value)}>
+              <option value="all">All Conditions</option>
+              {conditions.map((c) => (
+                <option key={c.value} value={c.value}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
 
           {/* Sort */}
           <select
@@ -211,7 +216,7 @@ export default function OtherSystemsPage() {
           purpose: purpose !== 'all' ? purpose : undefined,
           minPrice: priceRange[0],
           maxPrice: priceRange[1],
-          condition: condition !== 'all' ? condition : undefined,
+          condition: condition !== 'all' ? condition as ProductCondition : undefined,
           sortBy,
         }}
       />

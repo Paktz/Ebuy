@@ -101,3 +101,7 @@ export interface CartItem {
     status?: 'ACTIVE' | 'SOLD' | 'RESERVED';
     quantity?: number;
   }
+
+  export type ProductCondition = 'NEW' | 'LIKE_NEW' | 'USED';
+
+  

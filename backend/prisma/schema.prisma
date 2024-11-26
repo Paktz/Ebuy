@@ -36,7 +36,7 @@ model Product {
   title       String
   description String?
   price       Decimal
-  condition   String // New, Like New, Used, etc.
+  condition   String @default("NEW")
   category    String // Complete PC, Graphics Card, CPU, etc.
   subcategory String? // Optional subcategory
   images      String[] // URLs of product images
