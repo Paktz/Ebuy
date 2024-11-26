@@ -23,6 +23,7 @@ export default function Navbar() {
   const { isLoggedIn, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
   const { items } = useCart();
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     setMounted(true);
@@ -34,7 +35,7 @@ export default function Navbar() {
   };
 
   const categories = [
-    { name: 'NEW', href: '/products/new' },
+    { name: 'NEW', href: '/products' },
     { name: 'GAMING PCS', href: '/products/pcs' },
     { name: 'GPUS', href: '/products/gpus' },
     { name: 'CPUS', href: '/products/cpus' },
@@ -53,6 +54,13 @@ export default function Navbar() {
 
   const cartItemsCount = items.reduce((total, item) => total + item.quantity, 0);
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   if (!mounted) return null;
 
   return (
@@ -67,18 +75,24 @@ export default function Navbar() {
             </Link>
 
             {/* Search Bar */}
-            <div className="flex-1 max-w-2xl mx-8">
+            <form onSubmit={handleSearch} className="flex-1 max-w-2xl mx-8">
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Search listings and sellers"
-                  className="w-full px-4 py-2 pl-10 pr-4 rounded-lg border border-gray-300 focus:outline-none focus:border-purple-500"
-                />
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search product listings"
+                  className="w-full px-4 py-2 pl-10 pr-4 rounded-lg border border-gray-300 focus:outline-none focus:border-purple-500"/>
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
                   <Search className="h-5 w-5 text-gray-400" />
                 </div>
+                <button
+                  type="submit"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600">
+                  <span className="sr-only">Search</span>
+                </button>
               </div>
-            </div>
+            </form>
 
             {/* Right Section */}
             <div className="flex items-center space-x-4">
