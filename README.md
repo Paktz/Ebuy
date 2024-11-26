@@ -43,7 +43,7 @@ A full-stack e-commerce platform for buying and selling PC components, built wit
 1. Clone the repository
 ```bash
 git clone h
-ttps://github.com/yourusername/ebuy.git
+https://github.com/yourusername/ebuy.git
 cd ebuy
 ```
 Install Backend Dependencies
