@@ -1,33 +1,87 @@
-Installation
-  1. you need to copy this project into your local project directory
-  2. need to download node.js(18.18.0 or upper) and PostgreSQL(idk version) based on dependencies and its version (found in package.json file)
+# Ebuy - PC Parts Marketplace
 
-  ** to download specific version of node.js**
-  you can use nvm(node version manager) which can install specific version of node.js and switch between version to match dependencies of different project. you can go to installation link in 'https://github.com/coreybutler/nvm-windows#readme'
-  
-  3. click 'download me' and select latest version of nvm-setup.exe
-  4. when installation complete, try to run command 'nvm -v' to check if it exists
-  5. then run command 'nvm install v<X.Y.Z> which is specific version you want to install (ex. nvm install v18.17.0 )
-  6. run command 'nvm use 18.17.0' and 'nvm alias default 18.17.0' ,respectively.
-  7. check node version by running 'node -v'
+A full-stack e-commerce platform for buying and selling PC components, built with Next.js, Express, and PostgreSQL.
 
-Connecting the project to postgresql 
+![Ebuy Screenshot]()
 
-1. first, create .env file on root directory, then add -> DATABASE_URL="postgresql://<username>:<password>@localhost:5432/<database_name>?schema=public"
-  
-  2. check schema.prisma and after that, run
-  **set DOTENV_CONFIG_PATH=.\.env && npx prisma migrate dev --name <migration-name(it's like description, so first time i write 'init' )>** in cmd in root directory.
-  
-  the above command can migrate(as update, can changing over time) schema.prisma to .env which loads into PostgreSQL.
+## Features
 
+- 🛍️ User authentication and authorization
+- 💻 Browse and search PC components
+- 🛒 Shopping cart functionality
+- 💳 Order management system
+- 📦 Seller dashboard for managing listings
+- 🎯 Category-specific browsing (GPUs, CPUs, etc.)
+- 🔍 Advanced filtering and search options
 
-  Running project For windows
-  1. open command prompt(CMD) to project directory (ex. D:\HardwareEcommerceProject )
-  2. run command 'npm install' to install all dependencies
-  3. For CMD. go to frontend and backend path and run 'npm run dev' for each one of them.
-  ** NOTE THAT to use next.js v15.13.0 it requires node.js version 18.18.0 and higher to support it.**
+## Tech Stack
 
-     
-             .......................................add more na krub.................................
-  
-  
+### Frontend
+- Next.js
+- TypeScript
+- TailwindCSS
+- React Query
+- Axios
+- Lucide Icons
+
+### Backend
+- Express.js
+- PostgreSQL
+- Prisma ORM
+- JWT Authentication
+- Node.js
+
+## Getting Started
+
+### Prerequisites
+- Node.js 18+
+- PostgreSQL
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone h
+ttps://github.com/yourusername/ebuy.git
+cd ebuy
+```
+Install Backend Dependencies
+
+```bash
+cd backend
+npm install
+```
+Set up your PostgreSQL database and update .env file
+```
+DATABASE_URL="postgresql://user:password@localhost:5432/ebuy"
+JWT_SECRET="your-secret-key"
+```
+Run Prisma migrations
+
+```
+npx prisma migrate dev
+```
+Install Frontend Dependencies
+```
+cd ../frontend
+npm install
+```
+Create .env.local in frontend directory
+```
+NEXT_PUBLIC_API_URL="http://localhost:3001/api"
+```
+Running the Application
+Start Backend Server
+```
+Copycd backend
+npm run dev
+```
+Start Frontend Development Server
+```
+cd frontend
+npm run dev
+```
+The application will be available at:
+Frontend: http://localhost:3000
+Backend API: http://localhost:3001
