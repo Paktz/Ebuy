@@ -71,7 +71,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         <img
           src={product.images[0] || '/placeholder.png'}
           alt={product.title}
-          className="object-cover w-full h-48"
+          className="object-cover w-full h-38"
         />
       </div>
 
