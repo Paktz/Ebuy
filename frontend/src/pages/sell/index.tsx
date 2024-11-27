@@ -106,6 +106,7 @@ export default function CreateListingPage() {
     });
   
     try {
+      // setIsLoading(true);
       const response = await fetch('http://localhost:3001/api/upload/images', {
         method: 'POST',
         headers: {
