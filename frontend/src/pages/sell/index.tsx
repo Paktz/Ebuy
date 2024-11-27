@@ -94,13 +94,32 @@ export default function CreateListingPage() {
     setSpecs(specs.filter((_, i) => i !== index));
   };
 
-  // TODO: Implement actual image upload
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // TODO: Implement image upload on cloud
+  // This is only for local implementation
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (files) {
-      // Temporary: using URLs directly. In production, implement proper image upload
-      const newImages = Array.from(files).map(file => URL.createObjectURL(file));
-      setImages([...images, ...newImages]);
+    if (!files) return;
+  
+    const formData = new FormData();
+    Array.from(files).forEach(file => {
+      formData.append('images', file);
+    });
+  
+    try {
+      const response = await fetch('http://localhost:3001/api/upload/images', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: formData
+      });
+  
+      if (!response.ok) throw new Error('Upload failed');
+  
+      const data = await response.json();
+      setImages(prev => [...prev, ...data.urls]);
+    } catch (error) {
+      showToast.error('Failed to upload images');
     }
   };
 

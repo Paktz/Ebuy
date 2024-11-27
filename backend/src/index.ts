@@ -7,6 +7,7 @@ import cartRoutes from './routes/cart';
 import checkoutRoutes from './routes/checkout';
 import addressRoutes from './routes/addresses';
 import orderRoutes from './routes/orders';
+import path from 'path';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/addresses', addressRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Test route
 app.get('/api/test', (req, res) => {
