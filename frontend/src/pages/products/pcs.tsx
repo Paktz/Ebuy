@@ -4,6 +4,8 @@ import { Filter, ChevronRight, Cpu, Monitor, Zap } from 'lucide-react';
 import { ProductCondition } from '../../types/product';
 
 export default function GamingPcsPage() {
+  const [subcategory, setSubcategory] = useState('all');
+  const [style, setStyle] = useState('all');
   const [type, setType] = useState('all');
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
   const [processor, setProcessor] = useState('all');
@@ -100,7 +102,11 @@ export default function GamingPcsPage() {
           return (
             <button
               key={pcType.value}
-              onClick={() => setType(pcType.value)}
+              onClick={() => {
+                setSubcategory(pcType.value);
+                setStyle('all'); // Reset style when changing category
+              }}
+              
               className={`p-6 rounded-xl text-left transition-all ${
                 type === pcType.value
                   ? `${pcType.selectedBg} text-white shadow-lg scale-105`
@@ -214,6 +220,7 @@ export default function GamingPcsPage() {
       <ProductGrid
         category="GAMING_PCS"
         filter={{
+          subcategory: subcategory !== 'all' ? subcategory : undefined,
           type: type !== 'all' ? type : undefined,
           processor: processor !== 'all' ? processor : undefined,
           gpu: gpu !== 'all' ? gpu : undefined,

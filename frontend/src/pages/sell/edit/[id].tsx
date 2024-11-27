@@ -90,7 +90,39 @@ export default function EditProductPage() {
           { value: 'AMD', label: 'AMD' },
           { value: 'WORKSTATION', label: 'Workstation' }
         ];
-      // Add other categories...
+        case 'CPUS':
+            return [
+              { value: 'INTEL', label: 'Intel Core' },
+              { value: 'AMD', label: 'AMD Ryzen' },
+            ];
+          case 'COMPONENTS':
+            return [
+              { value: 'MOTHERBOARD', label: 'Motherboards' },
+              { value: 'MEMORY', label: 'Memory (RAM)' },
+              { value: 'STORAGE', label: 'Storage' },
+              { value: 'PSU', label: 'Power Supplies' },
+              { value: 'CASE', label: 'Cases' },
+              { value: 'COOLING', label: 'Cooling' }
+            ];
+          case 'PERIPHERALS':
+            return [
+              { value: 'MONITOR', label: 'Monitors' },
+              { value: 'KEYBOARD', label: 'Keyboards' },
+              { value: 'MOUSE', label: 'Mice' },
+              { value: 'HEADSET', label: 'Headsets' },
+              { value: 'SPEAKERS', label: 'Speakers' },
+              { value: 'WEBCAM', label: 'Webcams' }
+            ];
+          case 'ACCESSORIES':
+            return [
+              { value: 'CABLES', label: 'Cables & Adapters' },
+              { value: 'TOOLS', label: 'Tools & Equipment' },
+              { value: 'THERMAL_PASTE', label: 'Thermal Products' },
+              { value: 'FANS', label: 'Case Fans' },
+              { value: 'RGB', label: 'RGB & Lighting' },
+              { value: 'CLEANING', label: 'Cleaning Products' },
+              { value: 'STANDS', label: 'Stands & Mounts' }
+            ];
       default:
         return [];
     }

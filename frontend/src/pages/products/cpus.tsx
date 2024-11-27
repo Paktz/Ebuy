@@ -231,6 +231,7 @@ export default function CpusPage() {
         category="CPUS"
         filter={{
           subcategory: manufacturer !== 'all' ? manufacturer : undefined,
+          manufacturer: manufacturer !== 'all' ? manufacturer : undefined,
           series: series !== 'all' ? series : undefined,
           cores: cores !== 'all' ? cores : undefined,
           minPrice: priceRange[0],
