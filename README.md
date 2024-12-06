@@ -83,10 +83,18 @@ cd frontend
 npm run dev
 ```
 File Upload Configuration
-Ensure the uploads directory exists and is writable
-Files are served statically from /uploads route
-Development server will auto-reload when files are added
-
+## Ensure the uploads directory exists and is writable as files are served statically from /uploads route
+```
+backend/
+├── src/
+│   ├── controllers/   # Request handlers
+│   ├── middleware/    # Custom middleware
+│   ├── routes/       # API routes
+│   ├── utils/        # Helper functions
+│   └── index.ts      # Entry point
+├── uploads/          # Uploaded files
+└── prisma/          # Database schema
+```
 The application will be available at:
 Frontend: http://localhost:3000
 Backend API: http://localhost:3001
