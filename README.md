@@ -82,6 +82,11 @@ Start Frontend Development Server
 cd frontend
 npm run dev
 ```
+File Upload Configuration
+Ensure the uploads directory exists and is writable
+Files are served statically from /uploads route
+Development server will auto-reload when files are added
+
 The application will be available at:
 Frontend: http://localhost:3000
 Backend API: http://localhost:3001
